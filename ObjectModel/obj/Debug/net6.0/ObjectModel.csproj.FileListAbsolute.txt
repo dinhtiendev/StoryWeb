@@ -10,3 +10,15 @@
 /Users/admin/Documents/PRN231/StoryWeb/ObjectModel/obj/Debug/net6.0/refint/ObjectModel.dll
 /Users/admin/Documents/PRN231/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.pdb
 /Users/admin/Documents/PRN231/StoryWeb/ObjectModel/obj/Debug/net6.0/ref/ObjectModel.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/bin/Debug/net6.0/ObjectModel.deps.json
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/bin/Debug/net6.0/ObjectModel.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/bin/Debug/net6.0/ObjectModel.pdb
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.csproj.AssemblyReference.cache
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.AssemblyInfoInputs.cache
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.AssemblyInfo.cs
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/refint/ObjectModel.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.pdb
+/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ref/ObjectModel.dll

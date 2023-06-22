@@ -1881,11 +1881,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< Updated upstream
       "projectUniqueName": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
       "projectPath": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\DataAccess\\DataAccess.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
       "outputPath": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\DataAccess\\obj\\",
+=======
+      "projectUniqueName": "/Users/admin/Documents/StoryWeb/StoryWeb/DataAccess/DataAccess.csproj",
+      "projectName": "DataAccess",
+      "projectPath": "/Users/admin/Documents/StoryWeb/StoryWeb/DataAccess/DataAccess.csproj",
+      "packagesPath": "/Users/admin/.nuget/packages/",
+      "outputPath": "/Users/admin/Documents/StoryWeb/StoryWeb/DataAccess/obj/",
+>>>>>>> Stashed changes
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1902,8 +1910,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+<<<<<<< Updated upstream
             "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\ObjectModel\\ObjectModel.csproj": {
               "projectPath": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\ObjectModel\\ObjectModel.csproj"
+=======
+            "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj": {
+              "projectPath": "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj"
+>>>>>>> Stashed changes
             }
           }
         }

@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< Updated upstream
     "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\ObjectModel\\ObjectModel.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\ObjectModel\\ObjectModel.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
         "outputPath": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\ObjectModel\\obj\\",
+=======
+    "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj": {}
+  },
+  "projects": {
+    "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj",
+        "projectName": "ObjectModel",
+        "projectPath": "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj",
+        "packagesPath": "/Users/admin/.nuget/packages/",
+        "outputPath": "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/",
+>>>>>>> Stashed changes
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
