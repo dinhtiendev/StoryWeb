@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230622060305_AddTables")]
+    [Migration("20230622075956_AddTables")]
     partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

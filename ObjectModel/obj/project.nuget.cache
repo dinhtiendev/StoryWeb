@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< Updated upstream
   "dgSpecHash": "ugvJNzYW8DBMDG6Cl+bqCDM/bNA/NgI7rH0ocQriGb4HxrN9MAQJE3J4TmCeiJcUwwXYedujdarPvolxcTWNbg==",
   "success": true,
   "projectFilePath": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\ObjectModel\\ObjectModel.csproj",
+=======
+  "dgSpecHash": "+3uxf/0v0evLQsb+DVgXfVgZVWCoIZMQ6wjNTfOCZ5XlyfvLRNOudE69fjkeHMrwYNzfM60UzgBVMicZm7+HEQ==",
+  "success": true,
+  "projectFilePath": "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj",
+>>>>>>> Stashed changes
   "expectedPackageFiles": [],
   "logs": []
 }
