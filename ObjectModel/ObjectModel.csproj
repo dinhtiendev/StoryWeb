@@ -9,7 +9,4 @@
   <ItemGroup>
     <None Remove="Dtos\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dtos\" />
-  </ItemGroup>
 </Project>
