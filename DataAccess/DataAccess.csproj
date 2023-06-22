@@ -16,11 +16,9 @@
     <None Remove="Seeding\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
     <Folder Include="Models\" />
     <Folder Include="AutoMapper\" />
     <Folder Include="DbContexts\" />
-    <Folder Include="Repositories\IRepositories\" />
     <Folder Include="Seeding\" />
   </ItemGroup>
   <ItemGroup>
