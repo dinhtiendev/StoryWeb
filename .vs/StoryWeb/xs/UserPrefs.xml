@@ -1,0 +1,22 @@
+﻿<Properties StartupConfiguration="{D44E5DD3-8E5F-46B6-A7B3-2077C6EB1F79}|Default">
+  <MonoDevelop.Ide.ItemProperties.StoryFront FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataAccess/Seeding/SeedingData.cs">
+    <Files>
+      <File FileName="DataAccess/Seeding/SeedingData.cs" Line="694" Column="14" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="StoryWeb" expanded="True">
+            <Node name="StoryAPI" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.StoryAPI PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

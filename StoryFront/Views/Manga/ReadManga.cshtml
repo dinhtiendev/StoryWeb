@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Name";
+}
+
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <a href="./categories.html">Category</a>
+                    <span>Name Manga</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Anime Section Begin -->
+<section class="anime-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="anime__details__episodes sticky-top text-black h-auto">
+                    <div class="d-flex justify-content-center">
+                        <div class="ml-auto">
+                            <a href="#" class="bg-danger">
+                                <span class="arrow_carrot-left"></span>
+                            </a>
+                        </div>
+                        <div class="mx-auto" style="width: 500px;">
+                            <select class="form-select w-100" id="optionSelect" onchange="navigateToLink()">
+                                <option value="#" selected>Chapter 1</option>
+                                <option value="#">Chapter 2</option>
+                                <option value="#">Chapter 3</option>
+                                <option value="#">Chapter 4</option>
+                                <option value="#">Chapter 5</option>
+                                <option value="#">Chapter 6</option>
+                            </select>
+                        </div>
+                        <div class="mr-auto">
+                            <a href="#" class="bg-danger">
+                                <span class="arrow_carrot-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="anime__image__player">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/ReturnFFFClass%2Fes1%2Fimage_1.jpg?alt=media"
+                                 alt="image" />
+                        </div>
+                        <div class="col-auto">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/ReturnFFFClass%2Fes1%2Fimage_2.jpg?alt=media"
+                                 alt="image" />
+                        </div>
+                        <div class="col-auto">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/ReturnFFFClass%2Fes1%2Fimage_3.jpg?alt=media"
+                                 alt="image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>function navigateToLink() {
+        var selectElement = document.getElementById("optionSelect");
+        var selectedValue = selectElement.value;
+
+        if (selectedValue) {
+            window.location.href = selectedValue;
+        }
+    }</script>
+<!-- Anime Section End -->
