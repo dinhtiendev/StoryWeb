@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Manga\" />
+    <None Remove="Views\Auth\" />
+    <None Remove="Views\MangaManagement\" />
+    <None Remove="Views\UserManagement\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Manga\" />
+    <Folder Include="Views\Auth\" />
+    <Folder Include="Views\MangaManagement\" />
+    <Folder Include="Views\UserManagement\" />
+  </ItemGroup>
+</Project>
