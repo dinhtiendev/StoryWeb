@@ -18,4 +18,9 @@
     <Folder Include="Views\MangaManagement\" />
     <Folder Include="Views\UserManagement\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ObjectModel\ObjectModel.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -9,7 +9,22 @@ namespace StoryFront.Controllers
 		{
 		}
 
-        public IActionResult ListManga()
+        public IActionResult MangaIndex()
+        {
+            return View();
+        }
+
+        public IActionResult MangaCreate()
+        {
+            return View();
+        }
+
+        public IActionResult MangaEdit()
+        {
+            return View();
+        }
+
+        public IActionResult MangaDelete()
         {
             return View();
         }
