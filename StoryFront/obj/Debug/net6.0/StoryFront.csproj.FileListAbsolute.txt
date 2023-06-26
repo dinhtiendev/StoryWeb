@@ -29,3 +29,6 @@
 /Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/obj/Debug/net6.0/StoryFront.pdb
 /Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/obj/Debug/net6.0/StoryFront.genruntimeconfig.cache
 /Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/obj/Debug/net6.0/ref/StoryFront.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/bin/Debug/net6.0/ObjectModel.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/bin/Debug/net6.0/ObjectModel.pdb
+/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/obj/Debug/net6.0/StoryFront.csproj.CopyComplete
