@@ -1,4 +1,121 @@
 ﻿@{
     ViewData["Title"] = "Create Manga";
 }
+@model ObjectModel.Dtos.StoryDTO
+@using ObjectModel.Dtos
 
+<style>
+    .chapter-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+        .chapter-row input[type="text"] {
+            margin-right: 10px;
+        }
+
+        .chapter-row .remove-chapter {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Remove chapter row
+    function removeChapterRow(element) {
+        $(element).closest('.chapter-row').remove();
+        updateChapterIndexes();
+    }
+
+    // Update chapter indexes
+    function updateChapterIndexes() {
+        $('.chapter-row').each(function (index, row) {
+            $(row).find('.images').attr('name', `ListOfChapter[${index}].ListOfImage`);
+        });
+    }
+
+    // Add new chapter row
+    function addChapterRow(element) {
+        var chapterCount = $('.chapter-row').length;
+
+        var selectOptions = '';
+        var chapterRow = '<div class="chapter-row">' +
+            '<input type="file" multiple class="form-control images" name="ListOfChapter[' + chapterCount + '].ListOfImage" placeholder="List of image" />' +
+            '<span class="remove-chapter" onclick="removeChapterRow(this)">Remove</span>' +
+            '</div>';
+
+        $(element).closest('.col-10').find('.chapter-list').append(chapterRow);
+    }
+
+</script>
+
+<section class="anime-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="d-flex text-white">
+                    <div class="p-2">
+                        <h3>Create Manga</h3>
+                    </div>
+                </div>
+            </div>
+            <form asp-action="MangaCreate">
+                <div class="container border p-3">
+                    <div class="row text-white">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-2">
+                            <label asp-for="Title" class="control-label pt-2" style="font-size:20px;"></label>
+                        </div>
+                        <div class="col-10 pb-3">
+                            <input type="text" asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="col-2">
+                            <label asp-for="AuthorName" class="control-label pt-2" style="font-size:20px;"></label>
+                        </div>
+                        <div class="col-10 pb-3">
+                            <input type="text" asp-for="AuthorName" class="form-control" />
+                            <span asp-validation-for="AuthorName" class="text-danger"></span>
+                        </div>
+                        <div class="col-2">
+                            <label asp-for="Content" class="control-label pt-2" style="font-size:20px;"></label>
+                        </div>
+                        <div class="col-10 pb-3">
+                            <input type="text" asp-for="Content" class="form-control" />
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div class="col-2">
+                            <label asp-for="ImageStory" class="control-label pt-2" style="font-size:20px;"></label>
+                        </div>
+                        <div class="col-10 pb-3">
+                            <input type="password" asp-for="ImageStory" class="form-control" />
+                            <span asp-validation-for="ImageStory" class="text-danger"></span>
+                        </div>
+                        <div class="col-2">
+                            <label asp-for="ListOfChapter" class="control-label pt-2" style="font-size:20px;"></label>
+                        </div>
+                        <div class="col-10 pb-3">
+                            <div class="chapter-list">
+                                <div class="chapter-row">
+                                    <input type="file" multiple class="form-control images" asp-for="ListOfChapter[0].ListOfImage" placeholder="List of image" />
+                                    <span class="remove-chapter" onclick="removeChapterRow(this)">Remove</span>
+                                </div>
+                            </div>
+                            <span onclick="addChapterRow(this)" style="cursor: pointer; color: blue;">Add Chapter</span>
+                        </div>
+                        <div class="col-5 offset-2">
+                            <a asp-action="MangaIndex" class="btn-primary btn form-control ">Back to List</a>
+                        </div>
+                        <div class="col-5">
+                            <input type="submit" value="Create" class="btn btn-success form-control" />
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Anime Section End -->

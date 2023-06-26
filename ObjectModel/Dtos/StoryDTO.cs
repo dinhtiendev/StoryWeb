@@ -23,5 +23,7 @@ namespace ObjectModel.Dtos
 		public string ImageStory { get; set; }
 
 		public bool IsActive { get; set; }
+
+		public List<ChapterDTO> ListOfChapter { get; set; }
 	}
 }
