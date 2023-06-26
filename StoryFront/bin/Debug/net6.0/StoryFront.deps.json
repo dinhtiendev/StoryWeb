@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "StoryFront/1.0.0": {
+        "dependencies": {
+          "ObjectModel": "1.0.0"
+        },
         "runtime": {
           "StoryFront.dll": {}
+        }
+      },
+      "ObjectModel/1.0.0": {
+        "runtime": {
+          "ObjectModel.dll": {}
         }
       }
     }
   },
   "libraries": {
     "StoryFront/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ObjectModel/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

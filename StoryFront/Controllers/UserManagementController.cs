@@ -9,7 +9,22 @@ namespace StoryFront.Controllers
 		{
 		}
 
-        public IActionResult ListUser()
+        public IActionResult UserIndex()
+        {
+            return View();
+        }
+
+        public IActionResult UserCreate()
+        {
+            return View();
+        }
+
+        public IActionResult UserEdit()
+        {
+            return View();
+        }
+
+        public IActionResult UserDelete()
         {
             return View();
         }

@@ -40,8 +40,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFuZ2EvU2VhcmNoTWFuZ2EuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/MangaManagement/ListManga.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFuZ2FNYW5hZ2VtZW50L0xpc3RNYW5nYS5jc2h0bWw=
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/MangaManagement/MangaCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFuZ2FNYW5hZ2VtZW50L01hbmdhQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/MangaManagement/MangaDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFuZ2FNYW5hZ2VtZW50L01hbmdhRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/MangaManagement/MangaEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFuZ2FNYW5hZ2VtZW50L01hbmdhRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/MangaManagement/MangaIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFuZ2FNYW5hZ2VtZW50L01hbmdhSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/Shared/Error.cshtml]
@@ -52,8 +64,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/UserManagement/ListUser.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlck1hbmFnZW1lbnQvTGlzdFVzZXIuY3NodG1s
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/UserManagement/UserCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlck1hbmFnZW1lbnQvVXNlckNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/UserManagement/UserDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlck1hbmFnZW1lbnQvVXNlckRlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/UserManagement/UserEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlck1hbmFnZW1lbnQvVXNlckVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/UserManagement/UserIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlck1hbmFnZW1lbnQvVXNlckluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/_ViewImports.cshtml]
