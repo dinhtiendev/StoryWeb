@@ -17,5 +17,7 @@ namespace ObjectModel.Dtos
         public DateTime CreateAt { get; set; }
 
         public int StoryId { get; set; }
+
+        public List<ImageDTO> ListOfImage { get; set; }
     }
 }

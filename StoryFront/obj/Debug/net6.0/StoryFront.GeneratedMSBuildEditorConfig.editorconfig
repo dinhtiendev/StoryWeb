@@ -24,6 +24,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9TaWduVXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/ChapterManagement/ChapterCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2hhcHRlck1hbmFnZW1lbnQvQ2hhcHRlckNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/ChapterManagement/ChapterDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2hhcHRlck1hbmFnZW1lbnQvQ2hhcHRlckRlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/ChapterManagement/ChapterEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2hhcHRlck1hbmFnZW1lbnQvQ2hhcHRlckVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/ChapterManagement/ChapterIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2hhcHRlck1hbmFnZW1lbnQvQ2hhcHRlckluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/admin/Documents/StoryWeb/StoryWeb/StoryFront/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
