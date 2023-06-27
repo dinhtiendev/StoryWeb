@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace ObjectModel.Dtos
 {
@@ -19,5 +20,8 @@ namespace ObjectModel.Dtos
         public int StoryId { get; set; }
 
         public List<ImageDTO> ListOfImage { get; set; }
+
+        public List<IFormFile> ListOfFile { get; set; }
+
     }
 }

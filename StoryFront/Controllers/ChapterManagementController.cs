@@ -29,23 +29,20 @@ namespace StoryFront.Controllers
         [HttpPost]
         public async Task<IActionResult> ChapterCreate(ChapterDTO model)
         {
-            FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
-            string filename = "image_7.jpg";
-            string imagePath = "/Users/admin/Documents/PRN231/SourceImages/BaekXX/es6/image_7.jpg";
-            FileStream stream = new FileStream(imagePath, FileMode.Open);
-            var task = await storage.Child("images")
-                              .Child(filename)
-                              .PutAsync(stream);
-            return View();
-        }
-
-        public IActionResult ChapterEdit()
-        {
+            //var a = model.ListOfImage[0].File;
+            //FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
+            //string filename = "image_8.jpg";
+            //string imagePath = "/Users/admin/Documents/PRN231/SourceImages/BaekXX/es6/image_7.jpg";
+            //var stream = a.OpenReadStream();
+            //var task = await storage.Child("images")
+            //                  .Child(filename)
+            //                  .PutAsync(stream);
             return View();
         }
 
         public IActionResult ChapterDelete()
         {
+
             return View();
         }
     }
