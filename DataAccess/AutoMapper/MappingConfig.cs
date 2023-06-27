@@ -15,73 +15,70 @@ namespace DataAccess.AutoMapper
                 config.CreateMap<CategoryDTO, Category>();
                 config.CreateMap<User, UserDTO>();
                 config.CreateMap<UserDTO, User>();
-                //config.CreateMap<OrderDto, Order>()
-                //    .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.OrderId))
-                //    .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
-                //    .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId))
-                //    .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.OrderDate))
-                //    .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => MapDtoToOrderDetails(src.ListOfProduct)));
-
-                //config.CreateMap<Order, OrderDto>()
-                //    .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.OrderId))
-                //    .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
-                //    .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId))
-                //    .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.OrderDate))
-                //    .ForMember(dest => dest.ListOfProduct, opt => opt.MapFrom(src => MapOrderDetailsToDto(src.OrderDetails)));
-
-                //config.CreateMap<Product, ProductModelDto>()
-                //    .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-                //    .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
-                //    .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice));
-
-                //config.CreateMap<Customer, CustomerDto>()
-                //    .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
-
-                //config.CreateMap<Employee, EmployeeDto>()
-                //    .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId))
-                //    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName));
-
+                config.CreateMap<Story, StoryDTO>()
+                      .ForMember(dest => dest.StoryId, opt => opt.MapFrom(src => src.StoryId))
+                      .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                      .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.AuthorName))
+                      .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
+                      .ForMember(dest => dest.View, opt => opt.MapFrom(src => src.View))
+                      .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => src.CreateAt))
+                      .ForMember(dest => dest.ImageStory, opt => opt.MapFrom(src => src.ImageStory))
+                      .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+                      .ForMember(dest => dest.ListOfChapter, opt => opt.MapFrom(src => MapChapterToDto(src.Chapters)));
+                config.CreateMap<StoryDTO, Story>()
+                      .ForMember(dest => dest.StoryId, opt => opt.MapFrom(src => src.StoryId))
+                      .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                      .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.AuthorName))
+                      .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
+                      .ForMember(dest => dest.View, opt => opt.MapFrom(src => src.View))
+                      .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => src.CreateAt))
+                      .ForMember(dest => dest.ImageStory, opt => opt.MapFrom(src => src.ImageStory))
+                      .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+                      .ForMember(dest => dest.Chapters, opt => opt.MapFrom(src => MapDtoToChapter(src.ListOfChapter)));
+                ;
             });
 
             return mappingConfig;
         }
 
-        //private static ICollection<OrderDetail> MapDtoToOrderDetails(List<ProductDto> productDtos)
-        //{
-        //    var orderDetails = new List<OrderDetail>();
+        private static ICollection<Chapter> MapDtoToChapter(List<ChapterDTO> listOfChapter)
+        {
+            var chapters = new List<Chapter>();
 
-        //    foreach (var productDto in productDtos)
-        //    {
-        //        var orderDetail = new OrderDetail
-        //        {
-        //            ProductId = productDto.ProductId,
-        //            Quantity = productDto.Quantity,
-        //            UnitPrice = productDto.UnitPrice.GetValueOrDefault()
-        //        };
+            foreach (var chapterDto in listOfChapter)
+            {
+                var chapter = new Chapter
+                {
+                    ChapterId = chapterDto.ChapterId,
+                    Index = chapterDto.Index,
+                    View = chapterDto.View,
+                    CreateAt = chapterDto.CreateAt
+                };
 
-        //        orderDetails.Add(orderDetail);
-        //    }
+                chapters.Add(chapter);
+            }
 
-        //    return orderDetails;
-        //}
+            return chapters;
+        }
 
-        //private static List<ProductDto> MapOrderDetailsToDto(ICollection<OrderDetail> orderDetails)
-        //{
-        //    var productDtos = new List<ProductDto>();
+        private static List<ChapterDTO> MapChapterToDto(ICollection<Chapter> chapters)
+        {
+            var listOfChapter = new List<ChapterDTO>();
 
-        //    foreach (var orderDetail in orderDetails)
-        //    {
-        //        var productDto = new ProductDto
-        //        {
-        //            ProductId = orderDetail.ProductId,
-        //            Quantity = orderDetail.Quantity,
-        //            UnitPrice = orderDetail.UnitPrice
-        //        };
-        //        productDtos.Add(productDto);
-        //    }
+            foreach (var chapter in chapters)
+            {
+                var chapterDto = new ChapterDTO
+                {
+                    ChapterId = chapter.ChapterId,
+                    Index = chapter.Index,
+                    View = chapter.View,
+                    CreateAt = chapter.CreateAt
+                };
+                listOfChapter.Add(chapterDto);
+            }
 
-        //    return productDtos;
-        //}
+            return listOfChapter;
+        }
     }
 }
 
