@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+3uxf/0v0evLQsb+DVgXfVgZVWCoIZMQ6wjNTfOCZ5XlyfvLRNOudE69fjkeHMrwYNzfM60UzgBVMicZm7+HEQ==",
+  "dgSpecHash": "ugvJNzYW8DBMDG6Cl+bqCDM/bNA/NgI7rH0ocQriGb4HxrN9MAQJE3J4TmCeiJcUwwXYedujdarPvolxcTWNbg==",
   "success": true,
-  "projectFilePath": "/Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/ObjectModel.csproj",
+  "projectFilePath": "D:\\SE\\Courses\\PRN231\\Github\\StoryWeb\\ObjectModel\\ObjectModel.csproj",
   "expectedPackageFiles": [],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file /Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }
