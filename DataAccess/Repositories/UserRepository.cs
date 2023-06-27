@@ -68,7 +68,7 @@ namespace DataAccess.Repositories
 
         public async Task<bool> DeleteUser(int userId)
         {
-            User user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == userId);
             if (user == null)
             {
                 return false;
