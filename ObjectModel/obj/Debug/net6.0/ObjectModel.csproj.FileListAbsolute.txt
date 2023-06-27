@@ -22,15 +22,3 @@
 /Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/refint/ObjectModel.dll
 /Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ObjectModel.pdb
 /Users/admin/Documents/StoryWeb/StoryWeb/ObjectModel/obj/Debug/net6.0/ref/ObjectModel.dll
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\bin\Debug\net6.0\ObjectModel.deps.json
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\bin\Debug\net6.0\ObjectModel.dll
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\bin\Debug\net6.0\ObjectModel.pdb
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ObjectModel.csproj.AssemblyReference.cache
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ObjectModel.GeneratedMSBuildEditorConfig.editorconfig
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ObjectModel.AssemblyInfoInputs.cache
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ObjectModel.AssemblyInfo.cs
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ObjectModel.csproj.CoreCompileInputs.cache
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ObjectModel.dll
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\refint\ObjectModel.dll
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ObjectModel.pdb
-D:\SE\Courses\PRN231\Github\StoryWeb\ObjectModel\obj\Debug\net6.0\ref\ObjectModel.dll
