@@ -39,6 +39,16 @@
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <div class="col-2">
+                            <label asp-for="File" class="control-label pt-2" style="font-size:20px;"></label>
+                        </div>
+                        <div class="col-2 pb-3">
+                            <img width="200px" src="@(Model.ImageUser)" alt="image" />
+                        </div>
+                        <div class="col-8 pb-3">
+                            <input type="file" asp-for="File" class="form-control" />
+                            <span asp-validation-for="File" class="text-danger"></span>
+                        </div>
+                        <div class="col-2">
                             <label asp-for="IsMale" class="control-label pt-2" style="font-size:20px;"></label>
                         </div>
                         <div class="col-1 pb-3">
