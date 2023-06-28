@@ -7,5 +7,6 @@ namespace StoryAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+
     }
 }
