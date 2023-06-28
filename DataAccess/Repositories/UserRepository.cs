@@ -46,6 +46,7 @@ namespace DataAccess.Repositories
         {
             User user = _mapper.Map<UserDTO, User>(userDto);
             user.RoleId = 2;
+            user.IsActive = true;
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return _mapper.Map<User, UserDTO>(user);
