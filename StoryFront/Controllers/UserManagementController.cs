@@ -73,9 +73,19 @@ namespace StoryFront.Controllers
             return View();
         }
 
-        public IActionResult UserEdit()
+        public async Task<IActionResult> UserEdit(int userId)
         {
-            return View();
+            UserDTO model = new();
+            //if (token == null)
+            //{
+            //    return NotFound();
+            //}
+            var response = await _userService.GetUserByIdAsync<ResponseDto>(userId, "");
+            if (response != null && response.IsSuccess)
+            {
+                model = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(response.Result));
+            }
+            return View(model);
         }
 
         [HttpPost]
