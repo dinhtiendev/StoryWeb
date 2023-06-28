@@ -35,7 +35,21 @@ namespace DataAccess.AutoMapper
                       .ForMember(dest => dest.ImageStory, opt => opt.MapFrom(src => src.ImageStory))
                       .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
                       .ForMember(dest => dest.Chapters, opt => opt.MapFrom(src => MapDtoToChapter(src.ListOfChapter)));
-                ;
+                config.CreateMap<Chapter, ChapterDTO>()
+                      .ForMember(dest => dest.ChapterId, opt => opt.MapFrom(src => src.ChapterId))
+                      .ForMember(dest => dest.Index, opt => opt.MapFrom(src => src.Index))
+                      .ForMember(dest => dest.View, opt => opt.MapFrom(src => src.View))
+                      .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => src.CreateAt))
+                      .ForMember(dest => dest.StoryId, opt => opt.MapFrom(src => src.StoryId))
+                      .ForMember(dest => dest.ListOfImage, opt => opt.MapFrom(src => MapImageToDto(src.Images)));
+                config.CreateMap<ChapterDTO, Chapter>()
+                      .ForMember(dest => dest.ChapterId, opt => opt.MapFrom(src => src.ChapterId))
+                      .ForMember(dest => dest.Index, opt => opt.MapFrom(src => src.Index))
+                      .ForMember(dest => dest.View, opt => opt.MapFrom(src => src.View))
+                      .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => src.CreateAt))
+                      .ForMember(dest => dest.StoryId, opt => opt.MapFrom(src => src.StoryId))
+                      .ForMember(dest => dest.Images, opt => opt.MapFrom(src => MapDtoToImage(src.ListOfImage)));
+
             });
 
             return mappingConfig;
@@ -78,6 +92,45 @@ namespace DataAccess.AutoMapper
             }
 
             return listOfChapter;
+        }
+
+        private static ICollection<Image> MapDtoToImage(List<ImageDTO> listOfImage)
+        {
+            var images = new List<Image>();
+
+            foreach (var imageDto in listOfImage)
+            {
+                var chapter = new Image
+                {
+                    ImageId = imageDto.ImageId,
+                    Index = imageDto.Index,
+                    ImageChapter = imageDto.ImageChapter,
+                    ChapterId = imageDto.ChapterId
+                };
+
+                images.Add(chapter);
+            }
+
+            return images;
+        }
+
+        private static List<ImageDTO> MapImageToDto(ICollection<Image> images)
+        {
+            var listOfImage = new List<ImageDTO>();
+
+            foreach (var image in images)
+            {
+                var chapterDto = new ImageDTO
+                {
+                    ImageId = image.ImageId,
+                    Index = image.Index,
+                    ImageChapter = image.ImageChapter,
+                    ChapterId = image.ChapterId
+                };
+                listOfImage.Add(chapterDto);
+            }
+
+            return listOfImage;
         }
     }
 }

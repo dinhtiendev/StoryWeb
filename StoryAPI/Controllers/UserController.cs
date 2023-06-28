@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.IRepositories;
+using Firebase.Storage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,7 @@ namespace StoryAPI.Controllers
             {
                 if (await _userRepository.GetUserById(userDto.UserId) == null)
                 {
+                    
                     UserDTO model = await _userRepository.CreateUser(userDto);
                     _response.Result = model;
                 } else

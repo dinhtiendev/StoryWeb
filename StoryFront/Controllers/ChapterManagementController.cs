@@ -37,6 +37,13 @@ namespace StoryFront.Controllers
             //var task = await storage.Child("images")
             //                  .Child(filename)
             //                  .PutAsync(stream);
+            //var downloadUrl = await storage.Child("images").Child(filename).GetDownloadUrlAsync();
+            //int tokenIndex = downloadUrl.IndexOf("&token=");
+            //if (tokenIndex >= 0)
+            //{
+            //    downloadUrl = downloadUrl.Substring(0, tokenIndex);
+            //}
+            //var a = downloadUrl;
             return View();
         }
 
