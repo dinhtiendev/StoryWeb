@@ -12,6 +12,8 @@
     <None Remove="Views\MangaManagement\" />
     <None Remove="Views\UserManagement\" />
     <None Remove="Views\ChapterManagement\" />
+    <None Remove="Services\" />
+    <None Remove="Services\IServices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Manga\" />
@@ -19,6 +21,8 @@
     <Folder Include="Views\MangaManagement\" />
     <Folder Include="Views\UserManagement\" />
     <Folder Include="Views\ChapterManagement\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\IServices\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ObjectModel\ObjectModel.csproj">

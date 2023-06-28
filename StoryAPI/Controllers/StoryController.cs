@@ -1,4 +1,5 @@
-﻿using DataAccess.Repositories.IRepositories;
+﻿using DataAccess.Repositories;
+using DataAccess.Repositories.IRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ObjectModel.Dtos;
@@ -11,10 +12,12 @@ namespace StoryAPI.Controllers
     {
         protected ResponseDto _response;
         private IStoryRepository _storyRepository;
+        private IChapterRepository _chapterRepository;
 
-        public StoryController(IStoryRepository storyRepository)
+        public StoryController(IStoryRepository storyRepository, IChapterRepository chapterRepository)
         {
             _storyRepository = storyRepository;
+            _chapterRepository = chapterRepository;
             this._response = new ResponseDto();
         }
         [HttpGet]
@@ -60,6 +63,85 @@ namespace StoryAPI.Controllers
             {
                 IEnumerable<StoryDTO> storyDtos = await _storyRepository.GetStoriesByCategory(categoryId);
                 _response.Result = storyDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpPost]
+        public async Task<object> Post([FromBody] StoryDTO storyDto)
+        {
+            try
+            {
+                if (await _storyRepository.GetStoryById(storyDto.StoryId) == null)
+                {
+                    StoryDTO model = await _storyRepository.CreateStory(storyDto);
+                    _response.Result = model;
+                }
+                else
+                {
+                    throw new Exception("This story is exist");
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+
+        [HttpPut]
+        public async Task<object> Put([FromBody] StoryDTO storyDto)
+        {
+            try
+            {
+                if (await _storyRepository.GetStoryById(storyDto.StoryId) != null)
+                {
+                    StoryDTO model = await _storyRepository.UpdateStory(storyDto);
+                    _response.Result = model;
+                }
+                else
+                {
+                    throw new Exception("This story is NOT exist");
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<object> Delete(int id)
+        {
+            try
+            {
+                if (await _storyRepository.GetStoryById(id) != null)
+                {
+                    bool isSuccess = await _storyRepository.DeleteStory(id);
+                    _response.Result = isSuccess;
+                    if (!isSuccess)
+                    {
+                        throw new Exception("Can't delete");
+                    }
+                }
+                else
+                {
+                    throw new Exception("This story is NOT exist");
+                }
+
             }
             catch (Exception ex)
             {

@@ -148,3 +148,5 @@
 /Users/admin/Documents/StoryWeb/StoryWeb/StoryAPI/obj/Debug/net6.0/StoryAPI.pdb
 /Users/admin/Documents/StoryWeb/StoryWeb/StoryAPI/obj/Debug/net6.0/StoryAPI.genruntimeconfig.cache
 /Users/admin/Documents/StoryWeb/StoryWeb/StoryAPI/obj/Debug/net6.0/ref/StoryAPI.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/StoryAPI/bin/Debug/net6.0/Firebase.Storage.dll
+/Users/admin/Documents/StoryWeb/StoryWeb/StoryAPI/bin/Debug/net6.0/Newtonsoft.Json.dll

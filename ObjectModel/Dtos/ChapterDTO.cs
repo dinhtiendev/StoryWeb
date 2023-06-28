@@ -21,7 +21,7 @@ namespace ObjectModel.Dtos
 
         public List<ImageDTO> ListOfImage { get; set; }
 
-        public List<IFormFile> ListOfFile { get; set; }
+        public List<IFormFile>? ListOfFile { get; set; }
 
     }
 }
