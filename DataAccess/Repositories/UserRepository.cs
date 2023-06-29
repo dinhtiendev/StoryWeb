@@ -42,6 +42,12 @@ namespace DataAccess.Repositories
             return _mapper.Map<UserDTO>(user);
         }
 
+        public async Task<UserDTO> GetUserByEmail(string email)
+        {
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.RoleId == 2 && x.Email == email);
+            return _mapper.Map<UserDTO>(user);
+        }
+
         public async Task<UserDTO> CreateUser(UserDTO userDto)
         {
             User user = _mapper.Map<UserDTO, User>(userDto);
@@ -58,8 +64,8 @@ namespace DataAccess.Repositories
             oldUser.FullName = userDto.FullName;
             oldUser.UserName = userDto.UserName;
             oldUser.ImageUser = userDto.ImageUser;
-            oldUser.Email = userDto.Email;
-            oldUser.Password = userDto.Password;
+            //oldUser.Email = userDto.Email;
+            //oldUser.Password = userDto.Password;
             oldUser.IsMale = userDto.IsMale;
             oldUser.IsActive = userDto.IsActive;
             _context.Users.Update(oldUser);

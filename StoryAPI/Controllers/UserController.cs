@@ -62,9 +62,14 @@ namespace StoryAPI.Controllers
             {
                 if (await _userRepository.GetUserById(userDto.UserId) == null)
                 {
-                    
-                    UserDTO model = await _userRepository.CreateUser(userDto);
-                    _response.Result = model;
+                    if (await _userRepository.GetUserByEmail(userDto.Password) == null)
+                    {
+                        UserDTO model = await _userRepository.CreateUser(userDto);
+                        _response.Result = model;
+                    } else
+                    {
+                        throw new Exception("This user email is exist");
+                    }
                 } else
                 {
                     throw new Exception("This user is exist");

@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <form asp-action="UserEdit">
+            <form asp-action="UserEdit" enctype="multipart/form-data">
                 <div class="container border p-3">
                     <div class="row text-white">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -21,7 +21,7 @@
                             <label asp-for="UserId" class="control-label pt-2" style="font-size:20px;"></label>
                         </div>
                         <div class="col-10 pb-3">
-                            <input type="text" asp-for="UserId" class="form-control" disabled />
+                            <input type="text" asp-for="UserId" class="form-control" readonly />
                             <span asp-validation-for="UserId" class="text-danger"></span>
                         </div>
                         <div class="col-2">
@@ -43,7 +43,10 @@
                         </div>
                         <div class="col-2 pb-3">
                             <img width="200px" src="@(Model.ImageUser)" alt="image" />
+                            <input type="hidden" asp-for="ImageUser" class="form-control" />
                         </div>
+                        <input type="hidden" asp-for="Email" class="form-control" />
+                        <input type="hidden" asp-for="Password" class="form-control" />
                         <div class="col-8 pb-3">
                             <input type="file" asp-for="File" class="form-control" />
                             <span asp-validation-for="File" class="text-danger"></span>
