@@ -41,6 +41,10 @@ namespace StoryFront.Controllers
         public async Task<IActionResult> UserCreate(UserDTO userDto)
         {
             ModelState.Remove(nameof(userDto.ImageUser));
+            if (userDto.File == null)
+            {
+                ModelState.AddModelError(nameof(userDto.File), "File is required");
+            }
             if (ModelState.IsValid)
             {
                 //var token = HttpContext.Session.GetString("token");
@@ -48,7 +52,6 @@ namespace StoryFront.Controllers
                 //{
                 //    return NotFound();
                 //}
-                var lastestUser = await _userService.GetAllUsersAsync<ResponseDto>("");
                 FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
                 string filename = Guid.NewGuid() + ".jpg";
                 var stream = userDto.File.OpenReadStream();
@@ -62,7 +65,7 @@ namespace StoryFront.Controllers
                 queryParams.Remove("token");
                 uriBuilder.Query = queryParams.ToString();
                 string userImage = uriBuilder.ToString();
-                userDto.ImageUser = downloadUrl;
+                userDto.ImageUser = userImage;
                 userDto.File = null;
                 var response = await _userService.CreateUserAsync<ResponseDto>(userDto, "");
                 if (response != null && response.IsSuccess)
@@ -90,15 +93,43 @@ namespace StoryFront.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UserEdit(UserDTO userDto)
+        public async Task<IActionResult> UserEdit(UserDTO userDto)
         {
-
+            ModelState.Remove(nameof(userDto.Email));
+            ModelState.Remove(nameof(userDto.Password));
+            if (ModelState.IsValid)
+            {
+                if (userDto.File != null)
+                {
+                    var imageUser = userDto.ImageUser;
+                    UriBuilder uriBuilder = new UriBuilder(imageUser.ToString());
+                    Uri uri = uriBuilder.Uri;
+                    string nameImage = System.IO.Path.GetFileName(uri.LocalPath);
+                    FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
+                    var stream = userDto.File.OpenReadStream();
+                    var task = await storage.Child("Users")
+                                      .Child(nameImage)
+                                      .PutAsync(stream);
+                    string userImage = uriBuilder.ToString();
+                    userDto.File = null;
+                }
+                var response = await _userService.UpdateUserAsync<ResponseDto>(userDto, "");
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(UserIndex));
+                }
+            }
             return View();
         }
 
-        public IActionResult UserDelete()
+        public async Task<IActionResult> UserDelete(int userId)
         {
-            return View();
+            var response = await _userService.DeleteUserAsync<ResponseDto>(userId, "");
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(UserIndex));
+            }
+            return RedirectToAction(nameof(UserIndex));
         }
     }
 }
