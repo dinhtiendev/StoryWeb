@@ -9,6 +9,7 @@ namespace DataAccess.Repositories.IRepositories
         Task<IEnumerable<UserDTO>> GetUsers();
         Task<UserDTO> GetUserById(int userId);
         Task<UserDTO> GetUserByEmailAndPassword(string email, string password);
+        Task<UserDTO> GetUserByEmail(string email);
         Task<UserDTO> CreateUser(UserDTO userDto);
         Task<UserDTO> UpdateUser(UserDTO userDto);
         Task<bool> DeleteUser(int userId);
