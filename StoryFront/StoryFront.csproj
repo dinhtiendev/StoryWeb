@@ -12,6 +12,8 @@
     <None Remove="Views\MangaManagement\" />
     <None Remove="Views\UserManagement\" />
     <None Remove="Views\ChapterManagement\" />
+    <None Remove="Services\" />
+    <None Remove="Services\IServices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Manga\" />
@@ -19,6 +21,8 @@
     <Folder Include="Views\MangaManagement\" />
     <Folder Include="Views\UserManagement\" />
     <Folder Include="Views\ChapterManagement\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\IServices\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ObjectModel\ObjectModel.csproj">
@@ -26,10 +30,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Google.Cloud.Storage.V1" Version="4.6.0" />
-    <PackageReference Include="Google.Cloud.Firestore" Version="3.3.0" />
-    <PackageReference Include="FirebaseAdmin" Version="2.3.0" />
     <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
-    <PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DataAccess.Repositories.IRepositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ObjectModel.Dtos;
 
 namespace StoryAPI.Controllers
 {
@@ -7,5 +9,49 @@ namespace StoryAPI.Controllers
     [ApiController]
     public class ChapterController : ControllerBase
     {
+        protected ResponseDto _response;
+        private IChapterRepository _chapterRepository;
+
+        public ChapterController(IChapterRepository chapterRepository)
+        {
+            _chapterRepository = chapterRepository;
+            this._response = new ResponseDto();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<object> Get(int id)
+        {
+            try
+            {
+                ChapterDTO chapterDto = await _chapterRepository.GetChapterById(id);
+                _response.Result = chapterDto;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpGet]
+        [Route("story/{storyId}")]
+        public async Task<object> GetByStoryId(int storyId)
+        {
+            try
+            {
+                IEnumerable<ChapterDTO> chapterDtos = await _chapterRepository.GetChapterByStoryId(storyId);
+                _response.Result = chapterDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }

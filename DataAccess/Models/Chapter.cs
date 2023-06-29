@@ -18,6 +18,8 @@ namespace StoryAPI.Models
         public int StoryId { get; set; }
         [ForeignKey("StoryId")]
         public virtual Story Story { get; set; }
+
+        public virtual ICollection<Image> Images { get; set; }
     }
 }
 

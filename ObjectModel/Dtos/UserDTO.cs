@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace ObjectModel.Dtos
 {
@@ -14,7 +16,9 @@ namespace ObjectModel.Dtos
 
 		public string UserName { get; set; }
 
-		public string ImageUser { get; set; }
+        public string ImageUser { get; set; }
+
+		public IFormFile? File { get; set; }
 
 		public string Email { get; set; }
 

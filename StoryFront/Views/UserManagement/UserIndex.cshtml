@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "List User";
 }
+@model IEnumerable<ObjectModel.Dtos.UserDTO>
 
 <section class="product-page spad">
     <div class="container">
@@ -28,22 +29,25 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody> 
-                    <tr>
-                        <td>1</td>
-                        <td>Name</td>
-                        <td width="50">Image</td>
-                        <td>Email</td>
-                        <td>Gender</td>
-                        <td width="200">
-                            <a asp-action="UserEdit" class="btn btn-outline-primary btn-sm">
-                                <span class="icon_pencil"></span> Edit
-                            </a>
-                            <a asp-action="UserDelete" class="btn btn-outline-danger btn-sm">
-                                <span class="icon_trash"></span> Delete
-                            </a>
-                        </td>
-                    </tr>
+                <tbody>
+                    @foreach (var user in Model)
+                        {
+                        <tr>
+                            <td>@user.UserId</td>
+                            <td>@user.FullName</td>
+                            <td width="50"><img src="@user.ImageUser" alt="userImage" /></td>
+                            <td>@user.Email</td>
+                            <td>@(user.IsMale ? "Male" : "Female")</td>
+                            <td width="200">
+                                <a asp-action="UserEdit" asp-route-userId="@user.UserId" class="btn btn-outline-primary btn-sm">
+                                    <span class="icon_pencil"></span> Edit
+                                </a>
+                                <a asp-action="UserDelete" asp-route-userId="@user.UserId" class="btn btn-outline-danger btn-sm">
+                                    <span class="icon_trash"></span> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

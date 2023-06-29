@@ -21,6 +21,8 @@ namespace StoryAPI.Models
 		public string ImageStory { get; set; }
 
 		public bool IsActive { get; set; }
+
+		public virtual ICollection<Chapter> Chapters { get; set; }
 	}
 }
 

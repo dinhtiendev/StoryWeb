@@ -29,31 +29,27 @@ namespace StoryFront.Controllers
         [HttpPost]
         public async Task<IActionResult> ChapterCreate(ChapterDTO model)
         {
-            FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
-
-            // Create a unique filename for the image (optional)
-            string filename = "image_7.jpg";
-
-            // Path to the local image file
-            string imagePath = "/Users/admin/Documents/PRN231/SourceImages/BaekXX/es6/image_7.jpg";
-
-            // Open a stream for the local image file
-            FileStream stream = new FileStream(imagePath, FileMode.Open);
-
-            // Upload the image file to Firebase Storage
-            var task = await storage.Child("images")
-                              .Child(filename)
-                              .PutAsync(stream);
-            return View();
-        }
-
-        public IActionResult ChapterEdit()
-        {
+            //var a = model.ListOfImage[0].File;
+            //FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
+            //string filename = "image_8.jpg";
+            //string imagePath = "/Users/admin/Documents/PRN231/SourceImages/BaekXX/es6/image_7.jpg";
+            //var stream = a.OpenReadStream();
+            //var task = await storage.Child("images")
+            //                  .Child(filename)
+            //                  .PutAsync(stream);
+            //var downloadUrl = await storage.Child("images").Child(filename).GetDownloadUrlAsync();
+            //int tokenIndex = downloadUrl.IndexOf("&token=");
+            //if (tokenIndex >= 0)
+            //{
+            //    downloadUrl = downloadUrl.Substring(0, tokenIndex);
+            //}
+            //var a = downloadUrl;
             return View();
         }
 
         public IActionResult ChapterDelete()
         {
+
             return View();
         }
     }

@@ -15,14 +15,14 @@ namespace DataAccess.Seeding
 				);
 
 			modelBuilder.Entity<User>().HasData(
-				new User { UserId = 1, FullName = "Admin", UserName = "Admin", ImageUser = "", Email = "admin@gmail.com", Password = "admin", IsMale = true, RoleId = 1, IsActive = true},
-				new User { UserId = 2, FullName = "User1", UserName = "User1", ImageUser = "", Email = "user1@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = true},
-				new User { UserId = 3, FullName = "User2", UserName = "User2", ImageUser = "", Email = "user2@gmail.com", Password = "12345", IsMale = false, RoleId = 2, IsActive = true},
-				new User { UserId = 4, FullName = "User3", UserName = "User3", ImageUser = "", Email = "user3@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = true},
-				new User { UserId = 5, FullName = "User4", UserName = "User4", ImageUser = "", Email = "user4@gmail.com", Password = "12345", IsMale = false, RoleId = 2, IsActive = true},
-				new User { UserId = 6, FullName = "User5", UserName = "User5", ImageUser = "", Email = "user5@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = true},
-				new User { UserId = 7, FullName = "User6", UserName = "User6", ImageUser = "", Email = "user6@gmail.com", Password = "12345", IsMale = false, RoleId = 2, IsActive = true},
-				new User { UserId = 8, FullName = "User7", UserName = "User7", ImageUser = "", Email = "user7@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = false}
+				new User { UserId = 1, FullName = "Admin", UserName = "Admin", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_1.jpeg?alt=media", Email = "admin@gmail.com", Password = "admin", IsMale = true, RoleId = 1, IsActive = true},
+				new User { UserId = 2, FullName = "User1", UserName = "User1", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_2.jpeg?alt=media", Email = "user1@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = true},
+				new User { UserId = 3, FullName = "User2", UserName = "User2", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_3.jpeg?alt=media", Email = "user2@gmail.com", Password = "12345", IsMale = false, RoleId = 2, IsActive = true},
+				new User { UserId = 4, FullName = "User3", UserName = "User3", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_4.jpeg?alt=media", Email = "user3@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = true},
+				new User { UserId = 5, FullName = "User4", UserName = "User4", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_5.jpeg?alt=media", Email = "user4@gmail.com", Password = "12345", IsMale = false, RoleId = 2, IsActive = true},
+				new User { UserId = 6, FullName = "User5", UserName = "User5", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_6.jpeg?alt=media", Email = "user5@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = true},
+				new User { UserId = 7, FullName = "User6", UserName = "User6", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_7.jpeg?alt=media", Email = "user6@gmail.com", Password = "12345", IsMale = false, RoleId = 2, IsActive = true},
+				new User { UserId = 8, FullName = "User7", UserName = "User7", ImageUser = "https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Users%2Fuser_8.jpeg?alt=media", Email = "user7@gmail.com", Password = "12345", IsMale = true, RoleId = 2, IsActive = false}
 
                 );
 

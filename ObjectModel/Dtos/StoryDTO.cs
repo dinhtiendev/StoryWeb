@@ -24,6 +24,6 @@ namespace ObjectModel.Dtos
 
 		public bool IsActive { get; set; }
 
-		public List<ChapterDTO> ListOfChapter { get; set; }
+		public List<ChapterDTO>? ListOfChapter { get; set; }
 	}
 }
