@@ -42,6 +42,12 @@ namespace DataAccess.Repositories
             return _mapper.Map<UserDTO>(user);
         }
 
+        public async Task<UserDTO> GetUserByEmail(string email)
+        {
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.RoleId == 2 && x.Email == email);
+            return _mapper.Map<UserDTO>(user);
+        }
+
         public async Task<UserDTO> CreateUser(UserDTO userDto)
         {
             User user = _mapper.Map<UserDTO, User>(userDto);
