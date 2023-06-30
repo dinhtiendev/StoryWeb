@@ -78,9 +78,9 @@ namespace DataAccess.Seeding
                 );
 
             modelBuilder.Entity<Category>().HasData(
-				new Category { CategoryId= 1, CategoryName = "Manga" }, // 1
-				new Category { CategoryId = 2, CategoryName = "Manhwa" }, // 2
-				new Category { CategoryId = 3, CategoryName = "Action" }, // 3
+                new Category { CategoryId = 1, CategoryName = "Manga" }, // 1
+                new Category { CategoryId = 2, CategoryName = "Manhwa" }, // 2
+                new Category { CategoryId = 3, CategoryName = "Action" }, // 3
                 new Category { CategoryId = 4, CategoryName = "Fantasy" }, // 4
                 new Category { CategoryId = 5, CategoryName = "Shounen" }, // 5
                 new Category { CategoryId = 6, CategoryName = "Drama" }, // 6
@@ -92,7 +92,6 @@ namespace DataAccess.Seeding
                 new Category { CategoryId = 12, CategoryName = "Seinen" }, // 12
                 new Category { CategoryId = 13, CategoryName = "Horror" }, // 13
                 new Category { CategoryId = 14, CategoryName = "Historical" } // 14
-
                 );
 
 			modelBuilder.Entity<StoryCategory>().HasData(

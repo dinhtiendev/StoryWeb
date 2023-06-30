@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace ObjectModel.Dtos
 {
@@ -22,8 +23,14 @@ namespace ObjectModel.Dtos
 
 		public string ImageStory { get; set; }
 
+		public IFormFile? FileHeader { get; set; }
+
 		public bool IsActive { get; set; }
 
-		public List<ChapterDTO>? ListOfChapter { get; set; }
-	}
+		public List<CategoryDTO>? ListOfCategory { get; set; }
+
+		public List<bool>? ListOfCheckedCategory { get; set; }
+
+        public List<ChapterDTO>? ListOfChapter { get; set; }
+    }
 }
