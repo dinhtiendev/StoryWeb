@@ -26,7 +26,11 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<StoryDTO>> GetStories()
         {
-            IEnumerable<Story> stories = await _context.Stories.Include(x => x.Chapters).OrderByDescending(x => x.StoryId).ToListAsync();
+            IEnumerable<Story> stories = await _context.Stories
+                .Include(x => x.Chapters)
+                .Include(x => x.StoryCategories)
+                .ThenInclude(category => category.Category)
+                .OrderByDescending(x => x.StoryId).ToListAsync();
             return _mapper.Map<List<StoryDTO>>(stories);
         }
 

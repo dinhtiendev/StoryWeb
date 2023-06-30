@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using DataAccess.Models;
 using ObjectModel.Dtos;
 using StoryAPI.Models;
 
@@ -24,6 +25,7 @@ namespace DataAccess.AutoMapper
                       .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => src.CreateAt))
                       .ForMember(dest => dest.ImageStory, opt => opt.MapFrom(src => src.ImageStory))
                       .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+                      .ForMember(dest => dest.ListOfCategory, opt => opt.MapFrom(src => MapStoryCategoryToDto(src.StoryCategories)))
                       .ForMember(dest => dest.ListOfChapter, opt => opt.MapFrom(src => MapChapterToDto(src.Chapters)));
                 config.CreateMap<StoryDTO, Story>()
                       .ForMember(dest => dest.StoryId, opt => opt.MapFrom(src => src.StoryId))
@@ -34,6 +36,7 @@ namespace DataAccess.AutoMapper
                       .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => src.CreateAt))
                       .ForMember(dest => dest.ImageStory, opt => opt.MapFrom(src => src.ImageStory))
                       .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+                      .ForMember(dest => dest.StoryCategories, opt => opt.MapFrom(src => MapDtoToStoryCategory(src.ListOfCategory, src.StoryId)))
                       .ForMember(dest => dest.Chapters, opt => opt.MapFrom(src => MapDtoToChapter(src.ListOfChapter)));
                 config.CreateMap<Chapter, ChapterDTO>()
                       .ForMember(dest => dest.ChapterId, opt => opt.MapFrom(src => src.ChapterId))
@@ -53,6 +56,40 @@ namespace DataAccess.AutoMapper
             });
 
             return mappingConfig;
+        }
+
+        private static ICollection<StoryCategory> MapDtoToStoryCategory(List<CategoryDTO>? listOfCategory, int storyId)
+        {
+            var categories = new List<StoryCategory>();
+
+            foreach (var categoryDto in listOfCategory)
+            {
+                var category = new StoryCategory
+                {
+                    CategoryId = categoryDto.CategoryId,
+                    StoryId = storyId
+                };
+
+                categories.Add(category);
+            }
+            return categories;
+        }
+
+        private static List<CategoryDTO> MapStoryCategoryToDto(ICollection<StoryCategory> storyCategories)
+        {
+            var listOfCategory = new List<CategoryDTO>();
+
+            foreach (var storyCategory in storyCategories)
+            {
+                var chapterDto = new CategoryDTO
+                {
+                    CategoryId = storyCategory.CategoryId,
+                    CategoryName = storyCategory.Category.CategoryName
+                };
+                listOfCategory.Add(chapterDto);
+            }
+
+            return listOfCategory;
         }
 
         private static ICollection<Chapter> MapDtoToChapter(List<ChapterDTO> listOfChapter)

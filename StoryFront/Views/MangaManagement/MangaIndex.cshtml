@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "List Manga";
 }
+@model IEnumerable<ObjectModel.Dtos.StoryDTO>
 
 <section class="product-page spad">
     <div class="container">
@@ -32,32 +33,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td width="50">1</td>
-                        <td width="50">Name</td>
-                        <th width="50"><img src="" alt="header" /></th>
-                        <th width="50">Author</th>
-                        <th>
-                            <details>
-                                <summary>Summary</summary>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend faucibus dui id interdum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                            </details>
-                        </th>
-                        <th>Action, Manga</th>
-                        <th width="50">View</th>
-                        <th width="150">CreateAt</th>
-                        <td width="200">
-                            <a asp-controller="ChapterManagement" asp-action="ChapterIndex" class="btn btn-outline-primary btn-sm">
-                                <span class="icon_pencil"></span> Manage chapter
-                            </a>
-                            <a asp-action="MangaEdit" class="btn btn-outline-primary btn-sm">
-                                <span class="icon_pencil"></span> Edit
-                            </a>
-                            <a asp-action="MangaDelete" class="btn btn-outline-danger btn-sm">
-                                <span class="icon_trash"></span> Delete
-                            </a>
-                        </td>
-                    </tr>
+                    @foreach (var manga in Model)
+                    {
+                        <tr>
+                            <td width="50">@manga.StoryId</td>
+                            <td width="50">@manga.Title</td>
+                            <th width="50"><img src="@manga.ImageStory" alt="header" /></th>
+                            <th width="50">@manga.AuthorName</th>
+                            <th>
+                                <details>
+                                    <summary>Summary</summary>
+                                    <p class="text-white">@manga.Content</p>
+                                </details>
+                            </th>
+                            <th width="50">
+                                @foreach (var category in manga.ListOfCategory)
+                                {
+                                    <p class="text-white">
+                                        @category.CategoryName
+                                    </p>
+                                }
+                            </th>
+                            <th width="50">@manga.View</th>
+                            <th width="150">@manga.CreateAt</th>
+                            <td width="200">
+                                <a asp-controller="ChapterManagement" asp-action="ChapterIndex" asp-route-storyId="@manga.StoryId" class="btn btn-outline-primary btn-sm">
+                                    <span class="icon_pencil"></span> Manage chapter
+                                </a>
+                                <a asp-action="MangaEdit" asp-route-storyId="@manga.StoryId" class="btn btn-outline-primary btn-sm">
+                                    <span class="icon_pencil"></span> Edit
+                                </a>
+                                <a asp-action="MangaDelete" asp-route-storyId="@manga.StoryId" class="btn btn-outline-danger btn-sm">
+                                    <span class="icon_trash"></span> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

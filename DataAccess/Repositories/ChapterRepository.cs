@@ -25,7 +25,7 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<ChapterDTO>> GetChapterByStoryId(int storyId)
         {
-            IEnumerable<Chapter> chapters = await _context.Chapters.OrderBy(x => x.Index).ToListAsync();
+            IEnumerable<Chapter> chapters = await _context.Chapters.OrderBy(x => x.Index).Where(x => x.StoryId == storyId).ToListAsync();
             return _mapper.Map<List<ChapterDTO>>(chapters);
         }
 

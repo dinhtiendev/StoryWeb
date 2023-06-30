@@ -1,5 +1,6 @@
 ﻿	using System;
 using System.ComponentModel.DataAnnotations;
+using DataAccess.Models;
 
 namespace StoryAPI.Models
 {
@@ -22,7 +23,9 @@ namespace StoryAPI.Models
 
 		public bool IsActive { get; set; }
 
+		public virtual ICollection<StoryCategory> StoryCategories { get; set; }
+
 		public virtual ICollection<Chapter> Chapters { get; set; }
-	}
+    }
 }
 
