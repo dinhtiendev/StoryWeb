@@ -70,18 +70,36 @@ namespace StoryFront.Controllers
                 //{
                 //    return NotFound();
                 //}
-
+                var listIndexCategory = Enumerable.Range(0, storyDto.ListOfCheckedCategory.Count).Where(i => storyDto.ListOfCheckedCategory[i]).ToList();
+                var listCategory = new List<CategoryDTO>();
+                foreach (var category in listIndexCategory)
+                {
+                    var cate = new CategoryDTO
+                    {
+                        CategoryId = category + 1
+                    };
+                    listCategory.Add(cate);
+                }
+                storyDto.ListOfCategory = listCategory;
                 storyDto.ImageStory = await FirebaseService.CreateImage(storyDto.FileHeader, storyDto.Title.Replace(" ", ""));
                 storyDto.FileHeader = null;
                 if (storyDto.ListOfChapter.Count > 0)
                 {
                     for (int i = 0; i < storyDto.ListOfChapter.Count; i++)
                     {
+                        var listOfImage = new List<ImageDTO>();
                         for (int j = 0; j < storyDto.ListOfChapter[i].ListOfFile.Count; j++)
                         {
-                            storyDto.ImageStory = await FirebaseService.CreateImage(storyDto.ListOfChapter[i].ListOfFile[j], storyDto.Title.Replace(" ", ""), "es" + (i + 1));
-                            storyDto.ListOfChapter[i].ListOfFile[j] = null;
+                            var image = new ImageDTO
+                            {
+                                Index = j + 1,
+                                ImageChapter = await FirebaseService.CreateImage(storyDto.ListOfChapter[i].ListOfFile[j], storyDto.Title.Replace(" ", ""), "es" + (i + 1))
+                            };
+                            listOfImage.Add(image);
                         }
+                        storyDto.ListOfChapter[i].Index = i + 1;
+                        storyDto.ListOfChapter[i].ListOfImage = listOfImage;
+                        storyDto.ListOfChapter[i].ListOfFile = null;
                     }
                 }
                 var response = await _storyService.CreateStoryAsync<ResponseDto>(storyDto, "");

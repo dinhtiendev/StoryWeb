@@ -28,6 +28,7 @@ namespace DataAccess.Repositories
         {
             IEnumerable<Story> stories = await _context.Stories
                 .Include(x => x.Chapters)
+                .ThenInclude(chapter => chapter.Images)
                 .Include(x => x.StoryCategories)
                 .ThenInclude(category => category.Category)
                 .OrderByDescending(x => x.StoryId).ToListAsync();
@@ -57,6 +58,8 @@ namespace DataAccess.Repositories
         public async Task<StoryDTO> CreateStory(StoryDTO storyDto)
         {
             Story story = _mapper.Map<StoryDTO, Story>(storyDto);
+            story.CreateAt = DateTime.Now;
+            story.IsActive = true;
             _context.Stories.Add(story);
             await _context.SaveChangesAsync();
             return _mapper.Map<Story, StoryDTO>(story);
