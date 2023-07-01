@@ -53,5 +53,29 @@ namespace StoryAPI.Controllers
             }
             return _response;
         }
+
+        [HttpPost]
+        public async Task<object> Post([FromBody] ChapterDTO chapterDto)
+        {
+            try
+            {
+                if (await _chapterRepository.GetChapterById(chapterDto.ChapterId) == null)
+                {
+                    ChapterDTO model = await _chapterRepository.CreateChapter(chapterDto);
+                    _response.Result = model;
+                }
+                else
+                {
+                    throw new Exception("This chapter is exist");
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }
