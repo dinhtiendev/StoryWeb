@@ -6,51 +6,135 @@ using Microsoft.AspNetCore.Mvc;
 using ObjectModel.Dtos;
 using System.IO;
 using Firebase.Storage;
+using StoryFront.Services.IServices;
+using Newtonsoft.Json;
+using StoryFront.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using StoryFront.Helpers;
+using System.Collections;
+using System.Reflection;
 
 namespace StoryFront.Controllers
 {
     public class ChapterManagementController : Controller
     {
-        public ChapterManagementController()
-        {
+        private IChapterService _chapterService;
+        private IStoryService _storyService;
 
+        public ChapterManagementController(IChapterService chapterService, IStoryService storyService)
+        {
+            _chapterService = chapterService;
+            _storyService = storyService;
         }
 
-        public IActionResult ChapterIndex(int storyId)
+        public async Task<IActionResult> ChapterIndex(int storyId)
         {
-            return View();
+            List<ChapterDTO> list = new();
+            //if (token == null)
+            //{
+            //    return NotFound();
+            //}
+            var response = await _chapterService.GetChaptersByStoryIdAsync<ResponseDto>(storyId ,"");
+            if (response != null && response.IsSuccess)
+            {
+                list = JsonConvert.DeserializeObject<List<ChapterDTO>>(Convert.ToString(response.Result));
+            } else
+            {
+                return NotFound();
+            }
+            return View(list);
         }
 
-        public IActionResult ChapterCreate()
+        public async Task<IActionResult> ChapterCreate(int storyId)
         {
-            return View();
+            ChapterDTO model = new ChapterDTO();
+            model.StoryId = storyId;
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> ChapterCreate(ChapterDTO model)
         {
-            //var a = model.ListOfImage[0].File;
-            //FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
-            //string filename = "image_8.jpg";
-            //string imagePath = "/Users/admin/Documents/PRN231/SourceImages/BaekXX/es6/image_7.jpg";
-            //var stream = a.OpenReadStream();
-            //var task = await storage.Child("images")
-            //                  .Child(filename)
-            //                  .PutAsync(stream);
-            //var downloadUrl = await storage.Child("images").Child(filename).GetDownloadUrlAsync();
-            //int tokenIndex = downloadUrl.IndexOf("&token=");
-            //if (tokenIndex >= 0)
-            //{
-            //    downloadUrl = downloadUrl.Substring(0, tokenIndex);
-            //}
-            //var a = downloadUrl;
-            return View();
+            var response = await _chapterService.GetChapterByIndexAsync<ResponseDto>(model.Index, model.StoryId, "");
+            if (response.Result != null)
+            {
+                ModelState.AddModelError(nameof(model.Index), "That index is exist!");
+            }
+            if (model.ListOfFile == null)
+            {
+                ModelState.AddModelError(nameof(model.ListOfFile), "You need to add images");
+            }
+            if (response.Result != null || model.ListOfFile == null)
+            {
+                return View(model);
+            }
+            ModelState.Remove(nameof(model.ListOfImage));
+            var storyDto = new StoryDTO();
+            var responseGetStory = await _storyService.GetStoryByIdAsync<ResponseDto>(model.StoryId, "");
+            if (responseGetStory != null && responseGetStory.IsSuccess)
+            {
+                storyDto = JsonConvert.DeserializeObject<StoryDTO>(Convert.ToString(responseGetStory.Result));
+            } else
+            {
+                return NotFound();
+            }
+            var listOfImage = new List<ImageDTO>();
+            for (int i = 0; i < model.ListOfFile.Count; i++)
+            {
+                var image = new ImageDTO
+                {
+                    Index = i + 1,
+                    ImageChapter = await FirebaseService.CreateImage(model.ListOfFile[i], storyDto.Title.Replace(" ", ""), "es" + model.Index)
+                };
+                listOfImage.Add(image);
+            }
+            model.ListOfImage = listOfImage;
+            model.ListOfFile = null;
+            var responseCreateChapter = await _chapterService.CreateChapterAsync<ResponseDto>(model, "");
+            if (responseCreateChapter != null && responseCreateChapter.IsSuccess)
+            {
+                return RedirectToAction(nameof(ChapterIndex), new { storyId = model.StoryId });
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
-        public IActionResult ChapterDelete()
+        public async Task<IActionResult> ChapterDelete(int chapterId, int storyId)
         {
-
-            return View();
+            var storyDto = new StoryDTO();
+            var responseGetStory = await _storyService.GetStoryByIdAsync<ResponseDto>(storyId, "");
+            if (responseGetStory != null && responseGetStory.IsSuccess)
+            {
+                storyDto = JsonConvert.DeserializeObject<StoryDTO>(Convert.ToString(responseGetStory.Result));
+            }
+            else
+            {
+                return NotFound();
+            }
+            var responseGetChapter = await _chapterService.GetChapterByIdAsync<ResponseDto>(chapterId, "");
+            if (responseGetChapter != null && responseGetChapter.IsSuccess)
+            {
+                var chapterDto = JsonConvert.DeserializeObject<ChapterDTO>(Convert.ToString(responseGetChapter.Result));
+                foreach (var image in chapterDto.ListOfImage)
+                {
+                    FirebaseService.DeleteImage(image.ImageChapter, storyDto.Title.Replace(" ", ""), "es" + chapterDto.Index);
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+            var response = await _chapterService.DeleteChapterAsync<ResponseDto>(chapterId, "");
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(ChapterIndex), new { storyId = storyId });
+            } else
+            {
+                return NotFound();
+            }
         }
     }
 }

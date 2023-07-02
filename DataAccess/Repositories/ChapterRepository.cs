@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using DataAccess.DbContexts;
 using DataAccess.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -25,19 +25,32 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<ChapterDTO>> GetChapterByStoryId(int storyId)
         {
-            IEnumerable<Chapter> chapters = await _context.Chapters.OrderBy(x => x.Index).Where(x => x.StoryId == storyId).ToListAsync();
+            IEnumerable<Chapter> chapters = await _context.Chapters
+                .Include(x => x.Images)
+                .OrderBy(x => x.Index)
+                .Where(x => x.StoryId == storyId)
+                .ToListAsync();
             return _mapper.Map<List<ChapterDTO>>(chapters);
         }
 
         public async Task<ChapterDTO> GetChapterById(int chapterId)
         {
-            Chapter chapter = await _context.Chapters.Include(x => x.Images).FirstOrDefaultAsync(x => x.ChapterId == chapterId);
+            Chapter chapter = await _context.Chapters
+                .Include(x => x.Images)
+                .FirstOrDefaultAsync(x => x.ChapterId == chapterId);
+            return _mapper.Map<ChapterDTO>(chapter);
+        }
+
+        public async Task<ChapterDTO> GetChapterByIndex(int index, int storyId)
+        {
+            Chapter chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Index == index && x.StoryId == storyId);
             return _mapper.Map<ChapterDTO>(chapter);
         }
 
         public async Task<ChapterDTO> CreateChapter(ChapterDTO chapterDto)
         {
             Chapter chapter = _mapper.Map<ChapterDTO, Chapter>(chapterDto);
+            chapter.CreateAt = DateTime.Now;
             _context.Chapters.Add(chapter);
             await _context.SaveChangesAsync();
             return _mapper.Map<Chapter, ChapterDTO>(chapter);
@@ -45,7 +58,7 @@ namespace DataAccess.Repositories
 
         public async Task<bool> DeleteChapter(int chapterId)
         {
-            Chapter chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.ChapterId == chapterId);
+            Chapter chapter = await _context.Chapters.Include(x => x.Images).FirstOrDefaultAsync(x => x.ChapterId == chapterId);
             if (chapter == null)
             {
                 return false;
