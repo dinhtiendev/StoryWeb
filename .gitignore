@@ -407,4 +407,11 @@ FodyWeavers.xsd
 /StoryWeb/ObjectModel/obj/
 
 /StoryWeb/StoryFront/bin/
+
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
 /StoryWeb/StoryFront/obj/
