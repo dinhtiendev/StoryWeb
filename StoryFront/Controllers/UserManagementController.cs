@@ -3,6 +3,7 @@ using Firebase.Storage;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ObjectModel.Dtos;
+using StoryFront.Helpers;
 using StoryFront.Services.IServices;
 
 namespace StoryFront.Controllers
@@ -52,20 +53,7 @@ namespace StoryFront.Controllers
                 //{
                 //    return NotFound();
                 //}
-                FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
-                string filename = Guid.NewGuid() + ".jpg";
-                var stream = userDto.File.OpenReadStream();
-                var task = await storage.Child("Users")
-                                  .Child(filename)
-                                  .PutAsync(stream);
-                var downloadUrl = await storage.Child("Users").Child(filename).GetDownloadUrlAsync();
-                UriBuilder uriBuilder = new UriBuilder(downloadUrl.ToString());
-                Uri uri = uriBuilder.Uri;
-                var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
-                queryParams.Remove("token");
-                uriBuilder.Query = queryParams.ToString();
-                string userImage = uriBuilder.ToString();
-                userDto.ImageUser = userImage;
+                userDto.ImageUser = await FirebaseService.CreateImage(userDto.File, "Users");
                 userDto.File = null;
                 var response = await _userService.CreateUserAsync<ResponseDto>(userDto, "");
                 if (response != null && response.IsSuccess)
@@ -101,16 +89,7 @@ namespace StoryFront.Controllers
             {
                 if (userDto.File != null)
                 {
-                    var imageUser = userDto.ImageUser;
-                    UriBuilder uriBuilder = new UriBuilder(imageUser.ToString());
-                    Uri uri = uriBuilder.Uri;
-                    string nameImage = System.IO.Path.GetFileName(uri.LocalPath);
-                    FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
-                    var stream = userDto.File.OpenReadStream();
-                    var task = await storage.Child("Users")
-                                      .Child(nameImage)
-                                      .PutAsync(stream);
-                    string userImage = uriBuilder.ToString();
+                    await FirebaseService.EditImage(userDto.File, userDto.ImageUser, "Users");
                     userDto.File = null;
                 }
                 var response = await _userService.UpdateUserAsync<ResponseDto>(userDto, "");

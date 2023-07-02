@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataAccess.DbContexts;
+using DataAccess.Models;
 using DataAccess.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using ObjectModel.Dtos;
@@ -26,7 +27,12 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<StoryDTO>> GetStories()
         {
-            IEnumerable<Story> stories = await _context.Stories.Include(x => x.Chapters).OrderByDescending(x => x.StoryId).ToListAsync();
+            IEnumerable<Story> stories = await _context.Stories
+                .Include(x => x.Chapters)
+                .ThenInclude(chapter => chapter.Images)
+                .Include(x => x.StoryCategories)
+                .ThenInclude(category => category.Category)
+                .OrderByDescending(x => x.StoryId).ToListAsync();
             return _mapper.Map<List<StoryDTO>>(stories);
         }
 
@@ -46,13 +52,18 @@ namespace DataAccess.Repositories
 
         public async Task<StoryDTO> GetStoryById(int storyId)
         {
-            Story story = await _context.Stories.Include(x => x.Chapters).FirstOrDefaultAsync(x => x.StoryId == storyId);
+            Story story = await _context.Stories
+                .Include(x => x.Chapters).ThenInclude(chapter => chapter.Images)
+                .Include(x => x.StoryCategories).ThenInclude(category => category.Category)
+                .FirstOrDefaultAsync(x => x.StoryId == storyId);
             return _mapper.Map<StoryDTO>(story);
         }
 
         public async Task<StoryDTO> CreateStory(StoryDTO storyDto)
         {
             Story story = _mapper.Map<StoryDTO, Story>(storyDto);
+            story.CreateAt = DateTime.Now;
+            story.IsActive = true;
             _context.Stories.Add(story);
             await _context.SaveChangesAsync();
             return _mapper.Map<Story, StoryDTO>(story);
@@ -60,12 +71,16 @@ namespace DataAccess.Repositories
 
         public async Task<StoryDTO> UpdateStory(StoryDTO storyDto)
         {
-            Story oldStory = await _context.Stories.FirstOrDefaultAsync(x => x.StoryId == storyDto.StoryId);
-            oldStory.Title = storyDto.Title;
+            Story oldStory = await _context.Stories.Include(x => x.StoryCategories).FirstOrDefaultAsync(x => x.StoryId == storyDto.StoryId);
             oldStory.AuthorName = storyDto.AuthorName;
             oldStory.Content = storyDto.Content;
-            oldStory.ImageStory = storyDto.ImageStory;
             oldStory.IsActive = storyDto.IsActive;
+            var listCategory = new List<StoryCategory>();
+            foreach (var cate in storyDto.ListOfCategory)
+            {
+                listCategory.Add(new StoryCategory { StoryId = storyDto.StoryId, CategoryId = cate.CategoryId });
+            }
+            oldStory.StoryCategories = listCategory;
             _context.Stories.Update(oldStory);
             await _context.SaveChangesAsync();
             return _mapper.Map<Story, StoryDTO>(oldStory);
