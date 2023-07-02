@@ -9,7 +9,7 @@ namespace StoryFront.Services.IServices
         Task<T> GetStoryByIdAsync<T>(int id, string token);
         Task<T> CreateStoryAsync<T>(StoryDTO storyDto, string token);
         Task<T> UpdateStoryAsync<T>(StoryDTO storyDto, string token);
-        Task<T> DeleteUserAsync<T>(int id, string token);
+        Task<T> DeleteStoryAsync<T>(int id, string token);
     }
 }
 
