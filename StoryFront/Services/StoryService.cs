@@ -55,7 +55,7 @@ namespace StoryFront.Services
             });
         }
 
-        public async Task<T> DeleteUserAsync<T>(int id, string token)
+        public async Task<T> DeleteStoryAsync<T>(int id, string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {

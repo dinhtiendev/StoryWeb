@@ -16,7 +16,7 @@ namespace StoryFront.Controllers
 
         }
 
-        public IActionResult ChapterIndex()
+        public IActionResult ChapterIndex(int storyId)
         {
             return View();
         }
