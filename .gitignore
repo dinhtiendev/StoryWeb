@@ -396,3 +396,15 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+/StoryWeb/StoryAPI/bin/
+/StoryWeb/StoryAPI/obj/
+
+/StoryWeb/DataAccess/bin/
+/StoryWeb/DataAccess/obj/
+
+/StoryWeb/ObjectModel/bin/
+/StoryWeb/ObjectModel/obj/
+
+/StoryWeb/StoryFront/bin/
+/StoryWeb/StoryFront/obj/

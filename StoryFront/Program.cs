@@ -14,6 +14,8 @@ builder.Services.AddHttpClient<IStoryService, StoryService>();
 builder.Services.AddScoped<IStoryService, StoryService>();
 builder.Services.AddHttpClient<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddHttpClient<IChapterService, ChapterService>();
+builder.Services.AddScoped<IChapterService, ChapterService>();
 
 var app = builder.Build();
 

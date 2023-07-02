@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Firebase.Storage;
 using ObjectModel.Dtos;
 
@@ -34,6 +35,18 @@ namespace StoryFront.Helpers
             var task = await storage.Child(folderPath)
                               .Child(nameImage)
                               .PutAsync(stream);
+        }
+
+        public async static Task DeleteImage(string pathImage, params string[] folder)
+        {
+            UriBuilder uriBuilder = new UriBuilder(pathImage);
+            Uri uri = uriBuilder.Uri;
+            string nameImage = System.IO.Path.GetFileName(uri.LocalPath);
+            FirebaseStorage storage = new FirebaseStorage("fir-react-87033.appspot.com");
+            string folderPath = string.Join("/", folder);
+            await storage.Child(folderPath)
+                              .Child(nameImage)
+                              .DeleteAsync();
         }
 	}
 }
