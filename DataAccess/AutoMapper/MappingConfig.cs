@@ -50,6 +50,9 @@ namespace DataAccess.AutoMapper
                       .ForMember(dest => dest.StoryId, opt => opt.MapFrom(src => src.StoryId))
                       .ForMember(dest => dest.Images, opt => opt.MapFrom(src => MapDtoToImage(src.ListOfImage)));
 
+                config.CreateMap<Comment, CommentDTO>();
+                config.CreateMap<CommentDTO, Comment>();
+
             });
 
             return mappingConfig;
