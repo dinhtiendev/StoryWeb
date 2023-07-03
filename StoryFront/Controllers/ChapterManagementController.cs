@@ -120,12 +120,12 @@ namespace StoryFront.Controllers
                 var chapterDto = JsonConvert.DeserializeObject<ChapterDTO>(Convert.ToString(responseGetChapter.Result));
                 foreach (var image in chapterDto.ListOfImage)
                 {
-                    FirebaseService.DeleteImage(image.ImageChapter, storyDto.Title.Replace(" ", ""), "es" + chapterDto.Index);
+                    await FirebaseService.DeleteImage(image.ImageChapter, storyDto.Title.Replace(" ", ""), "es" + chapterDto.Index);
                 }
             }
             else
             {
-                return NotFound();
+                return NotFound();  
             }
             var response = await _chapterService.DeleteChapterAsync<ResponseDto>(chapterId, "");
             if (response != null && response.IsSuccess)
