@@ -3,6 +3,7 @@ using DataAccess.DbContexts;
 using DataAccess.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using ObjectModel.Dtos;
+using StoryAPI.Models;
 
 namespace DataAccess.Repositories
 {
@@ -17,11 +18,14 @@ namespace DataAccess.Repositories
             _mapper = mapper;
         }
 
-        public async Task<bool> AddComment(CommentDTO comment)
+        public async Task<bool> AddComment(ReplyDTO comment)
         {
             try
             {
-
+                var c = _mapper.Map<ReplyDTO, Comment>(comment);
+                c.CreatedAt = DateTime.Now;
+                _context.Comments.Add(c);
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -30,28 +34,18 @@ namespace DataAccess.Repositories
             }
         }
 
-        public async Task<bool> AddReply(CommentDTO comment)
+        public async Task<bool> AddReply(int commentId, ReplyDTO comment)
         {
             try
             {
-
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
-
-        public async Task<bool> DeleteComment(int commentId)
-        {
-            try
-            {
-                var comment = await _context.Comments.FirstOrDefaultAsync(x => x.CommentId == commentId);
-                if (comment != null)
+                var parentComment = await _context.Comments.FindAsync(commentId);
+                if (parentComment != null)
                 {
-                    _context.Remove(comment);
+                    var reply = _mapper.Map<Comment>(comment);
+                    reply.ParentCommentId = commentId;
+                    reply.StoryId = parentComment.StoryId;
+                    reply.CreatedAt = DateTime.Now;
+                    _context.Comments.Add(reply);
                     await _context.SaveChangesAsync();
                     return true;
                 }
@@ -63,7 +57,31 @@ namespace DataAccess.Repositories
             }
         }
 
-        public async Task<bool> EditComment(CommentDTO comment)
+        public async Task<bool> DeleteComment(int commentId)
+        {
+            try
+            {
+                var comment = await _context.Comments.FirstOrDefaultAsync(x => x.CommentId == commentId);
+                if (comment != null)
+                {
+                    var replies = await _context.Comments.Where(x => x.StoryId == comment.StoryId && x.ParentCommentId == comment.CommentId).ToListAsync();
+                    if (replies.Any())
+                    {
+                        _context.Comments.RemoveRange(replies);
+                    }
+                    _context.Comments.Remove(comment);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> EditComment(ReplyDTO comment)
         {
             try
             {
@@ -72,7 +90,6 @@ namespace DataAccess.Repositories
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -81,8 +98,15 @@ namespace DataAccess.Repositories
         {
             try
             {
-                var comments = await _context.Comments.Include(x => x.User).Where(x => x.StoryId == storyId && x.ParentCommentId == null).ToListAsync();
-                return _mapper.Map<List<CommentDTO>>(comments);
+                var comments = await _context.Comments
+                    .Include(x => x.User).Include(c => c.ParentComment)
+                    .Where(x => x.StoryId == storyId && x.ParentCommentId == null).ToListAsync();
+                var commentDTOs = _mapper.Map<List<CommentDTO>>(comments);
+                foreach (var commentDTO in commentDTOs)
+                {
+                    commentDTO.ListReplies = GetReplies(commentDTO.CommentId);
+                }
+                return commentDTOs;
             }
             catch (Exception)
             {
@@ -90,17 +114,14 @@ namespace DataAccess.Repositories
             }
         }
 
-        public async Task<List<CommentDTO>> GetReplies(int storyId, int commentId)
+        private List<ReplyDTO> GetReplies(int commentId)
         {
-            try
-            {
-                var comments = await _context.Comments.Include(x => x.User).Where(x => x.StoryId == storyId && x.CommentId == commentId).ToListAsync();
-                return _mapper.Map<List<CommentDTO>>(comments);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            var replies = _context.Comments
+                .Where(c => c.ParentCommentId == commentId)
+                .Select(c => _mapper.Map<ReplyDTO>(c))
+                .ToList();
+
+            return replies;
         }
     }
 }

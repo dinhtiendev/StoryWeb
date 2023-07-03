@@ -18,7 +18,7 @@ namespace StoryAPI.Controllers
             _response = new ResponseDto();
         }
 
-        [HttpGet("GetComments/{storyId}")]
+        [HttpGet("GetComments")]
         public async Task<object> GetComments(int storyId)
         {
             try
@@ -34,12 +34,61 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
-        [HttpGet("GetReplies/{storyId}")]
-        public async Task<object> GetReplies(int storyId, int commentId)
+        //[HttpGet("GetReplies")]
+        //public async Task<object> GetReplies(int storyId, int commentId)
+        //{
+        //    try
+        //    {
+        //        var result = await _commentRepository.GetReplies(storyId, commentId);
+        //        _response.Result = result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _response.IsSuccess = false;
+        //        _response.ErrorMessages = new List<string>() { ex.ToString() };
+        //    }
+        //    return _response;
+        //}
+
+        [HttpPost("AddComment")]
+        public async Task<object> AddComment([FromBody]ReplyDTO comment)
         {
             try
             {
-                var result = await _commentRepository.GetReplies(storyId, commentId);
+                var result = await _commentRepository.AddComment(comment);
+                _response.Result = result;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+
+        [HttpPost("AddReply")]
+        public async Task<object> AddReply(int commentId, [FromBody] ReplyDTO comment)
+        {
+            try
+            {
+                var result = await _commentRepository.AddComment(comment);
+                _response.Result = result;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpDelete("DeleteComment")]
+        public async Task<object> DeleteComment(int commentId)
+        {
+            try
+            {
+                var result = await _commentRepository.DeleteComment(commentId);
                 _response.Result = result;
             }
             catch (Exception ex)

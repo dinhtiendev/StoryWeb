@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObjectModel.Dtos
 {
-    public class CommentDTO
+    public class ReplyDTO
     {
         public int CommentId { get; set; }
 
@@ -21,7 +21,5 @@ namespace ObjectModel.Dtos
         public string Content { get; set; }
 
         public DateTime CreatedAt { get; set; }
-
-        public List<ReplyDTO>? ListReplies { get; set; }
     }
 }

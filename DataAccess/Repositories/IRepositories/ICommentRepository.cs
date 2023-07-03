@@ -9,16 +9,14 @@ namespace DataAccess.Repositories.IRepositories
 {
     public interface ICommentRepository
     {
-        public Task<bool> AddComment(CommentDTO comment);
+        public Task<bool> AddComment(ReplyDTO comment);
 
-        public Task<bool> AddReply(CommentDTO comment);
+        public Task<bool> AddReply(int commentId, ReplyDTO comment);
 
-        public Task<bool> EditComment(CommentDTO comment);
+        public Task<bool> EditComment(ReplyDTO comment);
 
         public Task<bool> DeleteComment(int commentId);
 
         public Task<List<CommentDTO>> GetComments(int storyId);
-
-        public Task<List<CommentDTO>> GetReplies(int storyId, int commentId);
     }
 }
