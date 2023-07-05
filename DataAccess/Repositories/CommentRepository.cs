@@ -1,20 +1,127 @@
-﻿using DataAccess.DbContexts;
+﻿using AutoMapper;
+using DataAccess.DbContexts;
 using DataAccess.Repositories.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using ObjectModel.Dtos;
+using StoryAPI.Models;
 
 namespace DataAccess.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationDbContext _context;
+        private IMapper _mapper;
 
-        public CommentRepository(ApplicationDbContext context)
+        public CommentRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<bool> AddComment(ReplyDTO comment)
+        {
+            try
+            {
+                var c = _mapper.Map<ReplyDTO, Comment>(comment);
+                c.CreatedAt = DateTime.Now;
+                _context.Comments.Add(c);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> AddReply(int commentId, ReplyDTO comment)
+        {
+            try
+            {
+                var parentComment = await _context.Comments.FindAsync(commentId);
+                if (parentComment != null)
+                {
+                    var reply = _mapper.Map<Comment>(comment);
+                    reply.ParentCommentId = commentId;
+                    reply.StoryId = parentComment.StoryId;
+                    reply.CreatedAt = DateTime.Now;
+                    _context.Comments.Add(reply);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteComment(int commentId)
+        {
+            try
+            {
+                var comment = await _context.Comments.FirstOrDefaultAsync(x => x.CommentId == commentId);
+                if (comment != null)
+                {
+                    var replies = await _context.Comments.Where(x => x.StoryId == comment.StoryId && x.ParentCommentId == comment.CommentId).ToListAsync();
+                    if (replies.Any())
+                    {
+                        _context.Comments.RemoveRange(replies);
+                    }
+                    _context.Comments.Remove(comment);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> EditComment(ReplyDTO comment)
+        {
+            try
+            {
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<CommentDTO>> GetComments(int storyId)
+        {
+            try
+            {
+                var comments = await _context.Comments
+                    .Include(x => x.User).Include(c => c.ParentComment)
+                    .Where(x => x.StoryId == storyId && x.ParentCommentId == null).ToListAsync();
+                var commentDTOs = _mapper.Map<List<CommentDTO>>(comments);
+                foreach (var commentDTO in commentDTOs)
+                {
+                    commentDTO.ListReplies = GetReplies(commentDTO.CommentId);
+                }
+                return commentDTOs;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private List<ReplyDTO> GetReplies(int commentId)
+        {
+            var replies = _context.Comments
+                .Where(c => c.ParentCommentId == commentId)
+                .Select(c => _mapper.Map<ReplyDTO>(c))
+                .ToList();
+
+            return replies;
         }
     }
 }

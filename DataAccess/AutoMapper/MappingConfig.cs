@@ -6,8 +6,8 @@ using StoryAPI.Models;
 
 namespace DataAccess.AutoMapper
 {
-	public class MappingConfig
-	{
+    public class MappingConfig
+    {
         public static MapperConfiguration RegisterMaps()
         {
             var mappingConfig = new MapperConfiguration(config =>
@@ -53,6 +53,12 @@ namespace DataAccess.AutoMapper
                       .ForMember(dest => dest.StoryId, opt => opt.MapFrom(src => src.StoryId))
                       .ForMember(dest => dest.Images, opt => opt.MapFrom(src => MapDtoToImage(src.ListOfImage)));
 
+                config.CreateMap<Comment, CommentDTO>()
+                    .ForMember(dest => dest.ListReplies, opt => opt.Ignore());
+                config.CreateMap<CommentDTO, Comment>();
+
+                config.CreateMap<Comment, ReplyDTO>();
+                config.CreateMap<ReplyDTO, Comment>();
             });
 
             return mappingConfig;
@@ -197,6 +203,7 @@ namespace DataAccess.AutoMapper
 
             return listOfImage;
         }
+
     }
 }
 

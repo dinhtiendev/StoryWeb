@@ -31,6 +31,7 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddCors();
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
