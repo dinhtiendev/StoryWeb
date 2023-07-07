@@ -18,11 +18,11 @@ namespace DataAccess.Repositories
             _mapper = mapper;
         }
 
-        public async Task<bool> AddComment(ReplyDTO comment)
+        public async Task<bool> AddComment(AddCommentDTO comment)
         {
             try
             {
-                var c = _mapper.Map<ReplyDTO, Comment>(comment);
+                var c = _mapper.Map<AddCommentDTO, Comment>(comment);
                 c.CreatedAt = DateTime.Now;
                 _context.Comments.Add(c);
                 await _context.SaveChangesAsync();
@@ -34,7 +34,7 @@ namespace DataAccess.Repositories
             }
         }
 
-        public async Task<bool> AddReply(int commentId, ReplyDTO comment)
+        public async Task<bool> AddReply(int commentId, AddCommentDTO comment)
         {
             try
             {
@@ -69,11 +69,10 @@ namespace DataAccess.Repositories
                     {
                         _context.Comments.RemoveRange(replies);
                     }
-                    _context.Comments.Remove(comment);
-                    await _context.SaveChangesAsync();
-                    return true;
                 }
-                return false;
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+                return true;
             }
             catch (Exception)
             {
@@ -81,7 +80,7 @@ namespace DataAccess.Repositories
             }
         }
 
-        public async Task<bool> EditComment(ReplyDTO comment)
+        public async Task<bool> EditComment(AddCommentDTO comment)
         {
             try
             {
@@ -117,10 +116,10 @@ namespace DataAccess.Repositories
         private List<ReplyDTO> GetReplies(int commentId)
         {
             var replies = _context.Comments
+                .Include(x => x.User)
                 .Where(c => c.ParentCommentId == commentId)
                 .Select(c => _mapper.Map<ReplyDTO>(c))
                 .ToList();
-
             return replies;
         }
     }

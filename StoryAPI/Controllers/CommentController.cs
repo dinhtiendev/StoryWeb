@@ -1,5 +1,4 @@
 ﻿using DataAccess.Repositories.IRepositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ObjectModel.Dtos;
 
@@ -34,24 +33,8 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
-        //[HttpGet("GetReplies")]
-        //public async Task<object> GetReplies(int storyId, int commentId)
-        //{
-        //    try
-        //    {
-        //        var result = await _commentRepository.GetReplies(storyId, commentId);
-        //        _response.Result = result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _response.IsSuccess = false;
-        //        _response.ErrorMessages = new List<string>() { ex.ToString() };
-        //    }
-        //    return _response;
-        //}
-
         [HttpPost("AddComment")]
-        public async Task<object> AddComment([FromBody]ReplyDTO comment)
+        public async Task<object> AddComment([FromBody] AddCommentDTO comment)
         {
             try
             {
@@ -68,11 +51,11 @@ namespace StoryAPI.Controllers
 
 
         [HttpPost("AddReply")]
-        public async Task<object> AddReply(int commentId, [FromBody] ReplyDTO comment)
+        public async Task<object> AddReply(int commentId, [FromBody] AddCommentDTO comment)
         {
             try
             {
-                var result = await _commentRepository.AddComment(comment);
+                var result = await _commentRepository.AddReply(commentId, comment);
                 _response.Result = result;
             }
             catch (Exception ex)
