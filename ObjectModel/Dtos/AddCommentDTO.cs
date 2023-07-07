@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace ObjectModel.Dtos
 {
-    public class ReplyDTO
+    public class AddCommentDTO
     {
         public int CommentId { get; set; }
 
-        public string? UserName { get; set; }
+        public int UserId { get; set; }
 
-        public string? Image { get; set; }
 
         public int StoryId { get; set; }
 
@@ -23,5 +22,6 @@ namespace ObjectModel.Dtos
         public string Content { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
     }
 }

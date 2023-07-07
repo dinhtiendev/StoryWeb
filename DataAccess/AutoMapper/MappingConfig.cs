@@ -54,11 +54,15 @@ namespace DataAccess.AutoMapper
                       .ForMember(dest => dest.Images, opt => opt.MapFrom(src => MapDtoToImage(src.ListOfImage)));
 
                 config.CreateMap<Comment, CommentDTO>()
-                    .ForMember(dest => dest.ListReplies, opt => opt.Ignore());
-                config.CreateMap<CommentDTO, Comment>();
+                    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                    .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.User.ImageUser));
 
-                config.CreateMap<Comment, ReplyDTO>();
-                config.CreateMap<ReplyDTO, Comment>();
+                config.CreateMap<Comment, ReplyDTO>()
+                    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                    .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.User.ImageUser)); ;
+
+                config.CreateMap<Comment, AddCommentDTO>().ReverseMap();
+
             });
 
             return mappingConfig;

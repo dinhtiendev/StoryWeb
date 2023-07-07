@@ -22,8 +22,6 @@
     <Folder Include="Views\MangaManagement\" />
     <Folder Include="Views\UserManagement\" />
     <Folder Include="Views\ChapterManagement\" />
-    <Folder Include="Services\" />
-    <Folder Include="Services\IServices\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>

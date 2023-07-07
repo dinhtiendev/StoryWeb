@@ -1,4 +1,5 @@
 ﻿using ObjectModel.Dtos;
+using StoryAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace DataAccess.Repositories.IRepositories
 {
     public interface ICommentRepository
     {
-        public Task<bool> AddComment(ReplyDTO comment);
+        public Task<bool> AddComment(AddCommentDTO comment);
 
-        public Task<bool> AddReply(int commentId, ReplyDTO comment);
+        public Task<bool> AddReply(int commentId, AddCommentDTO comment);
 
-        public Task<bool> EditComment(ReplyDTO comment);
+        public Task<bool> EditComment(AddCommentDTO comment);
 
         public Task<bool> DeleteComment(int commentId);
 
