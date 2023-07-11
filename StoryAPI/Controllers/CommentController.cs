@@ -17,7 +17,7 @@ namespace StoryAPI.Controllers
             _response = new ResponseDto();
         }
 
-        [HttpGet("GetComments")]
+        [HttpGet("GetComments/{storyId}")]
         public async Task<object> GetComments(int storyId)
         {
             try

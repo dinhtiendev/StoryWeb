@@ -47,7 +47,7 @@ namespace StoryFront.Services
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.GET,
-                Url = SD.storyAPIBase + "/api/Comment/GetComments",
+                Url = SD.storyAPIBase + "/api/Comment/GetComments/"+storyId,
                 AccessToken = token
             });
         }

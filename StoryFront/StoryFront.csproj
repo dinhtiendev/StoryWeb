@@ -17,7 +17,6 @@
     <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Manga\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\MangaManagement\" />
     <Folder Include="Views\UserManagement\" />
