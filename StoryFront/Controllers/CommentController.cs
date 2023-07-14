@@ -15,16 +15,5 @@ namespace StoryFront.Controllers
             _commentService = commentService;
         }
 
-        public async Task<IActionResult> ListCommentsAsync()
-        {
-            var response = await _commentService.GetAllAsync<ResponseDto>(1, null);
-            if (response.IsSuccess)
-            {
-                var listC = JsonConvert.DeserializeObject<IEnumerable<CommentDTO>>(Convert.ToString(response.Result));
-                ViewBag.ListC = listC;
-                return View("Views/Manga/MangaTestComment.cshtml");
-            }
-            return NotFound();
-        }
     }
 }

@@ -64,6 +64,26 @@ namespace StoryFront.Services
                 AccessToken = token
             });
         }
+
+        public async Task<T> GetTop4TrendingAsync<T>(string token)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.storyAPIBase + "/api/Story/GetTop4Trending",
+                AccessToken = token
+            });
+        }
+
+        public async Task<T> GetTop10PopularAsync<T>(string token)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.storyAPIBase + "/api/Story/GetTop10Popular",
+                AccessToken = token
+            });
+        }
     }
 }
 

@@ -37,6 +37,40 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
+        [HttpGet("GetTop4Trending")]
+        public async Task<object> GetTop4Trending()
+        {
+            try
+            {
+                IEnumerable<StoryDTO> storyDtos = await _storyRepository.GetTop4Trending();
+                _response.Result = storyDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpGet("GetTop10Popular")]
+        public async Task<object> GetTop10Popular()
+        {
+            try
+            {
+                IEnumerable<StoryDTO> storyDtos = await _storyRepository.GetTop10Popular();
+                _response.Result = storyDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<object> Get(int id)

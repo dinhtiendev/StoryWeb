@@ -10,6 +10,8 @@ namespace DataAccess.Repositories.IRepositories
     public interface IStoryRepository
     {
         Task<IEnumerable<StoryDTO>> GetStories();
+        Task<IEnumerable<StoryDTO>> GetTop4Trending();
+        Task<IEnumerable<StoryDTO>> GetTop10Popular();
         Task<IEnumerable<StoryDTO>> GetStoriesByName(string name);
         Task<IEnumerable<StoryDTO>> GetStoriesByCategory(int categoryId);
         Task<StoryDTO> GetStoryById(int storyId);
