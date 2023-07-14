@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ObjectModel.Dtos
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -47,11 +48,15 @@
                             <ul>
                                 <li class="active"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
                                 <li>
+                                    @{
+                                        var categories = ViewBag.Categories as IEnumerable<CategoryDTO>;
+                                    }
                                     <a href="#">Categories <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
-                                        <li><a asp-controller="Manga" asp-action="SearchManga">Category 1</a></li>
-                                        <li><a asp-controller="Manga" asp-action="SearchManga">Category 2</a></li>
-                                        <li><a asp-controller="Manga" asp-action="SearchManga"  >Category 3</a></li>
+                                        @foreach (var c in categories)
+                                        {
+                                            <li><a asp-controller="Manga" asp-action="SearchManga">@c.CategoryName</a></li>
+                                        }
                                     </ul>
                                 </li>
                                 <li><a asp-controller="Auth" asp-action="SignUp">Sign Up</a></li>

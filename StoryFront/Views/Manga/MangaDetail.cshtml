@@ -1,5 +1,9 @@
-﻿@{
+﻿@using ObjectModel.Dtos
+@{
     ViewData["Title"] = "Name";
+    var manga = ViewBag.Manga as StoryDTO;
+    var comments = ViewBag.Comments as IEnumerable<CommentDTO>;
+    var last = @manga.ListOfCategory.LastOrDefault();
 }
 
 <!-- Breadcrumb Begin -->
@@ -31,23 +35,32 @@
                 <div class="col-lg-9">
                     <div class="anime__details__text">
                         <div class="anime__details__title">
-                            <h3>Fate Stay Night: Unlimited Blade</h3>
-                            <span>フェイト／ステイナイト, Feito／sutei naito</span>
+                            <h3>@manga.Title</h3>
+                            @*<span>フェイト／ステイナイト, Feito／sutei naito</span>*@
                         </div>
                         <p>
-                            Every human inhabiting the world of Alcia is branded by a “Count” or a number written on
-                            their body. For Hina’s mother, her total drops to 0 and she’s pulled into the Abyss,
-                            never to be seen again. But her mother’s last words send Hina on a quest to find a
-                            legendary hero from the Waste War - the fabled Ace!
+                            @manga.Content
                         </p>
                         <div class="anime__details__widget">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <ul>
-                                        <li><span>Arthor:</span> Lerche</li>
-                                        <li><span>Date aired:</span> Oct 02, 2019 to ?</li>
-                                        <li><span>Status:</span> Airing</li>
-                                        <li><span>Genre:</span> Action, Adventure, Fantasy, Magic</li>
+                                        <li><span>Arthor:</span> @manga.AuthorName</li>
+                                        <li><span>Date aired:</span> @manga.CreateAt</li>
+                                        <li><span>Status:</span> @manga.IsActive</li>
+                                        <li>
+                                            <span>Genre:</span>
+
+                                            @foreach (var item in manga.ListOfCategory)
+                                            {
+                                                @item.CategoryName
+
+                                                @if (!@item.CategoryName.Equals(last.CategoryName))
+                                                {
+                                                    <span>, </span>
+                                                }
+                                            }
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -68,66 +81,43 @@
                     <div class="section-title">
                         <h5>Reviews</h5>
                     </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-1.jpg" alt="">
+                    @foreach (var c in comments)
+                    {
+                        <div class="anime__review__item">
+                            <div class="anime__review__item__pic">
+                                <img src="@c.Image" alt="">
+                            </div>
+                            <div class="anime__review__item__text">
+                                <h6>@c.UserName - <span>@c.CreatedAt</span></h6>
+                                <p>
+                                    @c.Content
+                                </p>
+                                <a href="#" class="reply-link">Reply</a>
+
+                                <div class="anime__details__form reply-form my-2">
+                                    <form action="addreply" method="post">
+                                        <textarea placeholder="Your Reply"></textarea>
+                                        <button style="margin-bottom: 20px;" type="submit"><i class="fa fa-location-arrow"></i> Reply</button>
+                                    </form>
+                                </div>
+
+                                @foreach (var r in c.ListReplies as IEnumerable<ReplyDTO>)
+                                {
+                                    <div class="child-comments" style="margin-top: 40px;">
+                                        <div class="anime__review__item">
+                                            <div class="anime__review__item__pic">
+                                                <img src="@c.Image" alt="">
+                                            </div>
+                                            <div class="anime__review__item__text">
+                                                <h6>@c.UserName - <span>@c.CreatedAt</span></h6>
+                                                <p> @c.Content</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                        <div class="anime__review__item__text">
-                            <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                            <p>
-                                whachikan Just noticed that someone categorized this as belonging to the genre
-                                "demons" LOL
-                            </p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-2.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                            <p>Finally it came out ages ago</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-3.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                            <p>Where is the episode 15 ? Slow update! Tch</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-4.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                            <p>
-                                whachikan Just noticed that someone categorized this as belonging to the genre
-                                "demons" LOL
-                            </p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-5.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                            <p>Finally it came out ages ago</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-6.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                            <p>Where is the episode 15 ? Slow update! Tch</p>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <div class="anime__details__form">
                     <div class="section-title">
@@ -170,3 +160,14 @@
     </div>
 </section>
 <!-- Anime Section End -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.reply-link').click(function(e) {
+            e.preventDefault();
+            $(this).siblings('.reply-form').toggle();
+        });
+
+        $('.reply-form').hide();
+    });
+</script>

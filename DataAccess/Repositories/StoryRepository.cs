@@ -98,5 +98,27 @@ namespace DataAccess.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<IEnumerable<StoryDTO>> GetTop4Trending()
+        {
+            IEnumerable<Story> stories = await _context.Stories
+                .Include(x => x.Chapters)
+                .ThenInclude(chapter => chapter.Images)
+                .Include(x => x.StoryCategories)
+                .ThenInclude(category => category.Category)
+                .OrderByDescending(x => x.View).Take(4).ToListAsync();
+            return _mapper.Map<List<StoryDTO>>(stories);
+        }
+
+        public async Task<IEnumerable<StoryDTO>> GetTop10Popular()
+        {
+            IEnumerable<Story> stories = await _context.Stories
+                .Include(x => x.Chapters)
+                .ThenInclude(chapter => chapter.Images)
+                .Include(x => x.StoryCategories)
+                .ThenInclude(category => category.Category)
+                .OrderByDescending(x => x.CreateAt).Take(10).ToListAsync();
+            return _mapper.Map<List<StoryDTO>>(stories);
+        }
     }
 }
