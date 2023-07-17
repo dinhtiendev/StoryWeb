@@ -89,6 +89,23 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
+        [HttpGet("GetStoryByCategoryId/{categoryId}")]
+        public async Task<object> GetStoryByCategoryId(int categoryId)
+        {
+            try
+            {
+                IEnumerable<StoryDTO> storyDtos = await _storyRepository.GetStoriesByCategoryId(categoryId);
+                _response.Result = storyDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
         [HttpGet]
         [Route("category/{categoryId}")]
         public async Task<object> GetById(int categoryId)

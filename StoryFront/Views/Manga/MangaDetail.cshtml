@@ -1,9 +1,8 @@
 ﻿@using ObjectModel.Dtos
 @{
-    ViewData["Title"] = "Name";
+    ViewData["Title"] = "Manga Detail";
     var manga = ViewBag.Manga as StoryDTO;
     var comments = ViewBag.Comments as IEnumerable<CommentDTO>;
-    var last = @manga.ListOfCategory.LastOrDefault();
 }
 
 <!-- Breadcrumb Begin -->
@@ -27,10 +26,12 @@
         <div class="anime__details__content">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="anime__details__pic set-bg" data-setbg="img/anime/details-pic.jpg">
-                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    </div>
+                    <a asp-controller="Manga" asp-action="ReadingManga" asp-route-storyId="@manga.StoryId"  asp-route-index="0">
+                        <div class="anime__details__pic set-bg" data-setbg="@manga.ImageStory">
+                            @*<div class="comment"><i class="fa fa-comments"></i> 11</div>*@
+                            <div class="view"><i class="fa fa-eye"></i> @manga.View</div>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-lg-9">
                     <div class="anime__details__text">
@@ -50,10 +51,13 @@
                                         <li><span>Status:</span> @manga.IsActive</li>
                                         <li>
                                             <span>Genre:</span>
-
+                                            @{
+                                                var last = @manga.ListOfCategory.LastOrDefault();
+                                            }
                                             @foreach (var item in manga.ListOfCategory)
                                             {
                                                 @item.CategoryName
+
 
                                                 @if (!@item.CategoryName.Equals(last.CategoryName))
                                                 {
@@ -67,7 +71,7 @@
                         </div>
                         <div class="anime__details__btn">
                             <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                            <a asp-action="ReadManga" class="watch-btn">
+                             <a asp-controller="Manga" asp-action="ReadingManga" asp-route-storyId="@manga.StoryId" asp-route-chapterId="0" class="watch-btn">
                                 <span>Read Now</span> <i class="fa fa-angle-right"></i>
                             </a>
                         </div>

@@ -1,5 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Name";
+﻿@using ObjectModel.Dtos
+@{
+    ViewData["Title"] = "Read Manga";
+    var story = ViewBag.StoryDetail as StoryDTO;
+    var chapter = ViewBag.Chapter as ChapterDTO;
 }
 
 <!-- Breadcrumb Begin -->
@@ -10,7 +13,7 @@
                 <div class="breadcrumb__links">
                     <a href="./index.html"><i class="fa fa-home"></i> Home</a>
                     <a href="./categories.html">Category</a>
-                    <span>Name Manga</span>
+                    <span>@story.Title</span>
                 </div>
             </div>
         </div>
@@ -29,15 +32,27 @@
                                 <span class="arrow_carrot-left"></span>
                             </a>
                         </div>
-                        <div class="mx-auto" style="width: 500px;">
+                        <div class="mx-auto" style="width: 500px">
+                            <form id="filter" asp-controller="Manga" asp-action="ReadingManga" method="get">
+                                <input type="hidden" name="storyId" value="@story.StoryId" />
+                                <select name="index" class="form-select w-100" id="optionSelect" onchange="this.form.submit()">
+                                    @foreach (var item in story.ListOfChapter)
+                                    {
+                                        <option value="@item.Index" selected='@((@item.Index == (int) ViewBag.Index)?"selected":null)'>Chapter @item.Index</option>
+                                    }
+                                </select>
+                            </form>
+
+                            @*<form id="filter" method="get" action="/Manga/ReadingManga">
                             <select class="form-select w-100" id="optionSelect" onchange="navigateToLink()">
-                                <option value="#" selected>Chapter 1</option>
-                                <option value="#">Chapter 2</option>
-                                <option value="#">Chapter 3</option>
-                                <option value="#">Chapter 4</option>
-                                <option value="#">Chapter 5</option>
-                                <option value="#">Chapter 6</option>
+                            <input type="hidden" name="storyId" value="@story.StoryId" />
+                            <select name="chapterId" class="form-select w-100" id="optionSelect">
+                            @foreach (var item in story.ListOfChapter)
+                            {
+                            <option value="@item.ChapterId" selected='@((@item.ChapterId == (int) ViewBag.ChapterId)?"selected":null)'>Chapter @item.Index</option>
+                            }
                             </select>
+                            </form>*@
                         </div>
                         <div class="mr-auto">
                             <a href="#" class="bg-danger">
@@ -48,18 +63,13 @@
                 </div>
                 <div class="anime__image__player">
                     <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/ReturnFFFClass%2Fes1%2Fimage_1.jpg?alt=media"
+                        @foreach (var item in chapter.ListOfImage)
+                        {
+                            <div class="col-auto">
+                                <img src="@item.ImageChapter"
                                  alt="image" />
-                        </div>
-                        <div class="col-auto">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/ReturnFFFClass%2Fes1%2Fimage_2.jpg?alt=media"
-                                 alt="image" />
-                        </div>
-                        <div class="col-auto">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/ReturnFFFClass%2Fes1%2Fimage_3.jpg?alt=media"
-                                 alt="image" />
-                        </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -67,12 +77,22 @@
     </div>
 </section>
 
-<script>function navigateToLink() {
-        var selectElement = document.getElementById("optionSelect");
-        var selectedValue = selectElement.value;
+<script>
+    //function navigateToLink() {
+    //    var selectElement = document.getElementById("optionSelect");
+    //    var selectedValue = selectElement.value;
 
-        if (selectedValue) {
-            window.location.href = selectedValue;
-        }
-    }</script>
+    //    if (selectedValue) {
+    //        window.location.href = selectedValue;
+    //    }
+
+    //var selectElement = document.getElementById("optionSelect");
+
+    //selectElement.addEventListener("change", function() {
+    //    var formElement = document.getElementById("filter");
+    //    formElement.submit();
+    //});
+    //            }
+
+    </script>
 <!-- Anime Section End -->
