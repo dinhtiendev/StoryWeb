@@ -14,6 +14,7 @@ namespace DataAccess.Repositories.IRepositories
         Task<IEnumerable<StoryDTO>> GetTop10Popular();
         Task<IEnumerable<StoryDTO>> GetStoriesByName(string name);
         Task<IEnumerable<StoryDTO>> GetStoriesByCategory(int categoryId);
+        Task<IEnumerable<StoryDTO>> GetStoriesByCategoryId(int categoryId);
         Task<StoryDTO> GetStoryById(int storyId);
         Task<StoryDTO> CreateStory(StoryDTO storyDto);
         Task<StoryDTO> UpdateStory(StoryDTO storyDto);

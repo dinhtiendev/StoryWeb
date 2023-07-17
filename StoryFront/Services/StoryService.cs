@@ -84,6 +84,16 @@ namespace StoryFront.Services
                 AccessToken = token
             });
         }
+
+        public async Task<T> GetStoryByCategoryId<T>(int id, string token)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.storyAPIBase + "/api/Story/GetStoryByCategoryId/" + id,
+                AccessToken = token
+            });
+        }
     }
 }
 

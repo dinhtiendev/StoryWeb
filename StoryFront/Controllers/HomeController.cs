@@ -37,13 +37,8 @@ public class HomeController : Controller
             ViewBag.Top10 = top10;
             return View("Views/Home/Index.cshtml");
         }
-        return NotFound();
+        return View("Views/Shared/Error.cshtml");
         //FirebaseService.DeleteImage("https://firebasestorage.googleapis.com/v0/b/fir-react-87033.appspot.com/o/Checked%2FAnother%2Fdb36f72d-ae1c-42ee-8a3c-f998ec1b3e12.jpg?alt=media", "Checked/Another");
-    }
-
-    public async Task<IActionResult> Layout()
-    {
-        return View();
     }
 }
 

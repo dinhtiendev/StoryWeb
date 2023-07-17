@@ -43,7 +43,7 @@ namespace DataAccess.Repositories
 
         public async Task<ChapterDTO> GetChapterByIndex(int index, int storyId)
         {
-            Chapter chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Index == index && x.StoryId == storyId);
+            Chapter chapter = await _context.Chapters.Include(x => x.Images).FirstOrDefaultAsync(x => x.Index == index && x.StoryId == storyId);
             return _mapper.Map<ChapterDTO>(chapter);
         }
 
