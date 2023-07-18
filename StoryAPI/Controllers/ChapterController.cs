@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ObjectModel.Dtos;
@@ -20,6 +21,7 @@ namespace StoryAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [AllowAnonymous]
         public async Task<object> Get(int id)
         {
             try
@@ -38,6 +40,7 @@ namespace StoryAPI.Controllers
 
         [HttpGet]
         [Route("story/{storyId}")]
+        [AllowAnonymous]
         public async Task<object> GetByStoryId(int storyId)
         {
             try
@@ -56,6 +59,7 @@ namespace StoryAPI.Controllers
 
         [HttpGet]
         [Route("story/{storyId}/index/{index}")]
+        [AllowAnonymous]
         public async Task<object> GetByIndex(int index, int storyId)
         {
             try
@@ -73,6 +77,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "1")]
         public async Task<object> Post([FromBody] ChapterDTO chapterDto)
         {
             try
@@ -98,6 +103,7 @@ namespace StoryAPI.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "1")]
         public async Task<object> Delete(int id)
         {
             try

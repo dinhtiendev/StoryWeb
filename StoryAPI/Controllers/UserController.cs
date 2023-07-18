@@ -20,6 +20,7 @@ namespace StoryAPI.Controllers
             this._response = new ResponseDto();
         }
         [HttpGet]
+        [Authorize(Roles = "1")]
         public async Task<object> Get()
         {
             try
@@ -38,6 +39,7 @@ namespace StoryAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize]
         public async Task<object> Get(int id)
         {
             try
@@ -56,13 +58,14 @@ namespace StoryAPI.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<object> Post([FromBody] UserDTO userDto)
         {
             try
             {
                 if (await _userRepository.GetUserById(userDto.UserId) == null)
                 {
-                    if (await _userRepository.GetUserByEmail(userDto.Password) == null)
+                    if (await _userRepository.GetUserByEmail(userDto.Email) == null)
                     {
                         UserDTO model = await _userRepository.CreateUser(userDto);
                         _response.Result = model;
@@ -86,6 +89,7 @@ namespace StoryAPI.Controllers
 
 
         [HttpPut]
+        [Authorize]
         public async Task<object> Put([FromBody] UserDTO userDto)
         {
             try
@@ -111,6 +115,7 @@ namespace StoryAPI.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "1")]
         public async Task<object> Delete(int id)
         {
             try

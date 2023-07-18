@@ -1,5 +1,6 @@
 ﻿using DataAccess.Repositories;
 using DataAccess.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ObjectModel.Dtos;
@@ -21,6 +22,7 @@ namespace StoryAPI.Controllers
             this._response = new ResponseDto();
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<object> Get()
         {
             try
@@ -38,6 +40,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpGet("GetTop4Trending")]
+        [AllowAnonymous]
         public async Task<object> GetTop4Trending()
         {
             try
@@ -55,6 +58,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpGet("GetTop10Popular")]
+        [AllowAnonymous]
         public async Task<object> GetTop10Popular()
         {
             try
@@ -73,6 +77,7 @@ namespace StoryAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [AllowAnonymous]
         public async Task<object> Get(int id)
         {
             try
@@ -90,6 +95,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpGet("GetStoryByCategoryId/{categoryId}")]
+        [AllowAnonymous]
         public async Task<object> GetStoryByCategoryId(int categoryId)
         {
             try
@@ -108,6 +114,7 @@ namespace StoryAPI.Controllers
 
         [HttpGet]
         [Route("category/{categoryId}")]
+        [AllowAnonymous]
         public async Task<object> GetById(int categoryId)
         {
             try
@@ -125,6 +132,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "1")]
         public async Task<object> Post([FromBody] StoryDTO storyDto)
         {
             try
@@ -150,6 +158,7 @@ namespace StoryAPI.Controllers
 
 
         [HttpPut]
+        [Authorize(Roles = "1")]
         public async Task<object> Put([FromBody] StoryDTO storyDto)
         {
             try
@@ -175,6 +184,7 @@ namespace StoryAPI.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "1")]    
         public async Task<object> Delete(int id)
         {
             try

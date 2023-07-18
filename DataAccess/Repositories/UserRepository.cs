@@ -34,11 +34,11 @@ namespace DataAccess.Repositories
         {
             User user = await _context.Users.FirstOrDefaultAsync(x => x.RoleId == 2 && x.UserId == userId);
             return _mapper.Map<UserDTO>(user);
-        }
+        }   
 
         public async Task<UserDTO> GetUserByEmailAndPassword(string email, string password)
         {
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.RoleId == 2 && x.Email == email && x.Password == password);
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
             return _mapper.Map<UserDTO>(user);
         }
 

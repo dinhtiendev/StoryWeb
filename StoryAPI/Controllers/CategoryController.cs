@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ObjectModel.Dtos;
@@ -7,6 +8,7 @@ namespace StoryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class CategoryController : ControllerBase
     {
         protected ResponseDto _response;
