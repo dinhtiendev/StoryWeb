@@ -1,4 +1,18 @@
-﻿@using ObjectModel.Dtos
+﻿@inject IHttpContextAccessor httpContextAccessor
+@using System.IdentityModel.Tokens.Jwt;
+@using ObjectModel.Dtos
+
+@{
+    var token = httpContextAccessor.HttpContext.Session.GetString("token");
+    string role = "";
+    if (token != null)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwtSecurityToken = handler.ReadJwtToken(token);
+        role = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "Role")?.Value;
+    }
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,21 +61,47 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
-                                <li>
-                                    @{
-                                        var categories = ViewBag.Categories as IEnumerable<CategoryDTO>;
-                                    }
-                                    <a href="#">Categories <span class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown">
-                                        @foreach (var c in categories)
-                                        {
-                                            <li><a asp-controller="Manga" asp-action="SearchManga" asp-route-categoryId="@c.CategoryId">@c.CategoryName</a></li>
+                                @if (token == null)
+                                {
+                                    <li>
+                                        @{
+                                            var categories = ViewBag.Categories as IEnumerable<CategoryDTO>;
                                         }
-                                    </ul>
-                                </li>
-                                <li><a asp-controller="Auth" asp-action="SignUp">Sign Up</a></li>
-                                <li><a asp-controller="Auth" asp-action="Login">Login</a></li>
-                                <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+                                        <a href="#">Categories <span class="arrow_carrot-down"></span></a>
+                                        <ul class="dropdown">
+                                            @foreach (var c in categories)
+                                            {
+                                                <li><a asp-controller="Manga" asp-action="SearchManga" asp-route-categoryId="@c.CategoryId">@c.CategoryName</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li><a asp-controller="Auth" asp-action="SignUp">Sign Up</a></li>
+                                    <li><a asp-controller="Auth" asp-action="Login">Login</a></li>
+                                }
+                                else
+                                {
+                                    @if (role == "1")
+                                    {
+                                        <li><a asp-controller="MangaManagement" asp-action="MangaIndex">Manage Story</a></li>
+                                        <li><a asp-controller="UserManagement" asp-action="UserIndex">Manage User</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            @{
+                                                var categories = ViewBag.Categories as IEnumerable<CategoryDTO>;
+                                            }
+                                            <a href="#">Categories <span class="arrow_carrot-down"></span></a>
+                                            <ul class="dropdown">
+                                                @foreach (var c in categories)
+                                                {
+                                                    <li><a asp-controller="Manga" asp-action="SearchManga" asp-route-categoryId="@c.CategoryId">@c.CategoryName</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+                                }
                             </ul>
                         </nav>
                     </div>
