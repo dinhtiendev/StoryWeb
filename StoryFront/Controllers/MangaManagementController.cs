@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using Firebase.Storage;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,12 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> MangaIndex()
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             List<StoryDTO> list = new();
-            //if (token == null)
-            //{
-            //    return NotFound();
-            //}
             var response = await _storyService.GetAllStorysAsync<ResponseDto>("");
             if (response != null && response.IsSuccess)
             {
@@ -43,6 +45,11 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> MangaCreate()
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             List<CategoryDTO> listCategory = new();
             var response = await _categoryService.GetAllCategoriesAsync<ResponseDto>("");
             if (response != null && response.IsSuccess)
@@ -60,6 +67,11 @@ namespace StoryFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> MangaCreate(StoryDTO storyDto)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             for (int i = 0; i < storyDto.ListOfChapter.Count; i++)
             {
                 string listOfImage = "ListOfChapter[" + i + "].ListOfImage";
@@ -136,6 +148,11 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> MangaEdit(int storyId)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             List<CategoryDTO> listCategory = new();
             var response = await _categoryService.GetAllCategoriesAsync<ResponseDto>("");
             if (response != null && response.IsSuccess)
@@ -174,13 +191,13 @@ namespace StoryFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> MangaEdit(StoryDTO storyDto)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             if (ModelState.IsValid)
             {
-                //var token = HttpContext.Session.GetString("token");
-                //if (token == null)
-                //{
-                //    return NotFound();
-                //}
                 List<CategoryDTO> listCategory = new();
                 var responseGetCategory = await _categoryService.GetAllCategoriesAsync<ResponseDto>("");
                 if (responseGetCategory != null && responseGetCategory.IsSuccess)
@@ -224,6 +241,11 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> MangaDelete(int storyId)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             var responseDeleteStory = await _storyService.DeleteStoryAsync<ResponseDto>(storyId, "");
             if (responseDeleteStory != null && responseDeleteStory.IsSuccess)
             {

@@ -38,7 +38,7 @@ namespace DataAccess.Repositories
 
         public async Task<UserDTO> GetUserByEmailAndPassword(string email, string password)
         {
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password && x.IsActive == true);
             return _mapper.Map<UserDTO>(user);
         }
 
