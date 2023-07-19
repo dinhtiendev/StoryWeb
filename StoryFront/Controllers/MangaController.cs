@@ -54,6 +54,22 @@ namespace StoryFront.Controllers
             return View("Views/Shared/Error.cshtml");
         }
 
+        public async Task<IActionResult> Search(string search)
+        {
+            var responseC = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
+            var responseM = await _storyService.SearchStoriesByNameAsync<ResponseDto>(null, search);
+            if (responseM.IsSuccess && responseC.IsSuccess)
+            {
+                ViewBag.ValueSearh = search;
+                var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryDTO>>(Convert.ToString(responseC.Result));
+                var stories = JsonConvert.DeserializeObject<IEnumerable<StoryDTO>>(Convert.ToString(responseM.Result));
+                ViewBag.Categories = categories;
+                ViewBag.Stories = stories;
+                return View("Views/Manga/SearchManga.cshtml");
+            }
+            return View("Views/Shared/Error.cshtml");
+        }
+
         public async Task<IActionResult> ReadingManga(int storyId, int index)
         {
             //if (chapterId == 0)
