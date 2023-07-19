@@ -93,6 +93,24 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
+        [HttpGet("GetTopView/{filterDate}")]
+        [AllowAnonymous]
+        public async Task<object> GetTopView(DateTime filterDate)
+        {
+            try
+            {
+                IEnumerable<StoryDTO> storyDtos = await _storyRepository.GetTopView(filterDate);
+                _response.Result = storyDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
         [HttpGet]
         [Route("{id}")]
         [AllowAnonymous]

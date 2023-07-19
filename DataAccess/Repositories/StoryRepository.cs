@@ -137,5 +137,17 @@ namespace DataAccess.Repositories
                 .OrderByDescending(x => x.CreateAt).Take(10).ToListAsync();
             return _mapper.Map<List<StoryDTO>>(stories);
         }
+
+        public async Task<IEnumerable<StoryDTO>> GetTopView(DateTime filter)
+        {
+            IEnumerable<Story> stories = await _context.Stories
+                .Include(x => x.Chapters)
+                .ThenInclude(chapter => chapter.Images)
+                .Include(x => x.StoryCategories)
+                .ThenInclude(category => category.Category)
+                .Where(x => x.CreateAt > filter)
+                .OrderByDescending(x => x.View).Take(2).ToListAsync();
+            return _mapper.Map<List<StoryDTO>>(stories);
+        }
     }
 }

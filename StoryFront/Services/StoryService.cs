@@ -85,6 +85,16 @@ namespace StoryFront.Services
             });
         }
 
+        public async Task<T> GetTopViewAsync<T>(DateTime filterDate, string token)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.storyAPIBase + "/api/Story/GetTopView/" + filterDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                AccessToken = token
+            });
+        }
+
         public async Task<T> GetStoryByCategoryId<T>(int id, string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
