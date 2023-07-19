@@ -12,6 +12,7 @@ namespace DataAccess.Repositories.IRepositories
         Task<IEnumerable<StoryDTO>> GetStories();
         Task<IEnumerable<StoryDTO>> GetTop4Trending();
         Task<IEnumerable<StoryDTO>> GetTop10Popular();
+        Task<IEnumerable<StoryDTO>> GetTopView(DateTime filter);
         Task<IEnumerable<StoryDTO>> GetStoriesByName(string name);
         Task<IEnumerable<StoryDTO>> GetStoriesByCategory(int categoryId);
         Task<IEnumerable<StoryDTO>> GetStoriesByCategoryId(int categoryId);
