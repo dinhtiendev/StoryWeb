@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
 
 SD.storyAPIBase = builder.Configuration["ServiceUrls:storyAPI"];
 builder.Services.AddHttpClient<IUserService, UserService>();
@@ -16,7 +17,12 @@ builder.Services.AddHttpClient<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddHttpClient<IChapterService, ChapterService>();
 builder.Services.AddScoped<IChapterService, ChapterService>();
+builder.Services.AddHttpClient<ICommentService, CommentService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddHttpClient<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -32,7 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -29,12 +29,13 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> ChapterIndex(int storyId)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             List<ChapterDTO> list = new();
-            //if (token == null)
-            //{
-            //    return NotFound();
-            //}
-            var response = await _chapterService.GetChaptersByStoryIdAsync<ResponseDto>(storyId ,"");
+            var response = await _chapterService.GetChaptersByStoryIdAsync<ResponseDto>(storyId ,token);
             if (response != null && response.IsSuccess)
             {
                 list = JsonConvert.DeserializeObject<List<ChapterDTO>>(Convert.ToString(response.Result));
@@ -55,7 +56,12 @@ namespace StoryFront.Controllers
         [HttpPost]
         public async Task<IActionResult> ChapterCreate(ChapterDTO model)
         {
-            var response = await _chapterService.GetChapterByIndexAsync<ResponseDto>(model.Index, model.StoryId, "");
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
+            var response = await _chapterService.GetChapterByIndexAsync<ResponseDto>(model.Index, model.StoryId, token);
             if (response.Result != null)
             {
                 ModelState.AddModelError(nameof(model.Index), "That index is exist!");
@@ -70,7 +76,7 @@ namespace StoryFront.Controllers
             }
             ModelState.Remove(nameof(model.ListOfImage));
             var storyDto = new StoryDTO();
-            var responseGetStory = await _storyService.GetStoryByIdAsync<ResponseDto>(model.StoryId, "");
+            var responseGetStory = await _storyService.GetStoryByIdAsync<ResponseDto>(model.StoryId, token);
             if (responseGetStory != null && responseGetStory.IsSuccess)
             {
                 storyDto = JsonConvert.DeserializeObject<StoryDTO>(Convert.ToString(responseGetStory.Result));
@@ -90,7 +96,7 @@ namespace StoryFront.Controllers
             }
             model.ListOfImage = listOfImage;
             model.ListOfFile = null;
-            var responseCreateChapter = await _chapterService.CreateChapterAsync<ResponseDto>(model, "");
+            var responseCreateChapter = await _chapterService.CreateChapterAsync<ResponseDto>(model, token);
             if (responseCreateChapter != null && responseCreateChapter.IsSuccess)
             {
                 return RedirectToAction(nameof(ChapterIndex), new { storyId = model.StoryId });
@@ -104,8 +110,13 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> ChapterDelete(int chapterId, int storyId)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             var storyDto = new StoryDTO();
-            var responseGetStory = await _storyService.GetStoryByIdAsync<ResponseDto>(storyId, "");
+            var responseGetStory = await _storyService.GetStoryByIdAsync<ResponseDto>(storyId, token);
             if (responseGetStory != null && responseGetStory.IsSuccess)
             {
                 storyDto = JsonConvert.DeserializeObject<StoryDTO>(Convert.ToString(responseGetStory.Result));
@@ -114,7 +125,7 @@ namespace StoryFront.Controllers
             {
                 return NotFound();
             }
-            var responseGetChapter = await _chapterService.GetChapterByIdAsync<ResponseDto>(chapterId, "");
+            var responseGetChapter = await _chapterService.GetChapterByIdAsync<ResponseDto>(chapterId, token);
             if (responseGetChapter != null && responseGetChapter.IsSuccess)
             {
                 var chapterDto = JsonConvert.DeserializeObject<ChapterDTO>(Convert.ToString(responseGetChapter.Result));
@@ -127,7 +138,7 @@ namespace StoryFront.Controllers
             {
                 return NotFound();  
             }
-            var response = await _chapterService.DeleteChapterAsync<ResponseDto>(chapterId, "");
+            var response = await _chapterService.DeleteChapterAsync<ResponseDto>(chapterId, token);
             if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(ChapterIndex), new { storyId = storyId });

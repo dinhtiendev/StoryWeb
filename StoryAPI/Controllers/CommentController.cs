@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ObjectModel.Dtos;
 
@@ -18,6 +19,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpGet("GetComments/{storyId}")]
+        [AllowAnonymous]
         public async Task<object> GetComments(int storyId)
         {
             try
@@ -34,6 +36,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpPost("AddComment")]
+        [Authorize]
         public async Task<object> AddComment([FromBody] AddCommentDTO comment)
         {
             try
@@ -51,6 +54,7 @@ namespace StoryAPI.Controllers
 
 
         [HttpPost("AddReply")]
+        [Authorize]
         public async Task<object> AddReply(int commentId, [FromBody] AddCommentDTO comment)
         {
             try
@@ -67,6 +71,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpDelete("DeleteComment")]
+        [Authorize]
         public async Task<object> DeleteComment(int commentId)
         {
             try
