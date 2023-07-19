@@ -2,6 +2,10 @@
 @{
     ViewData["Title"] = "Home";
     var top4 = ViewBag.Top4 as IEnumerable<StoryDTO>;
+    var topViewDay = ViewBag.TopViewDay as IEnumerable<StoryDTO>;
+    var topViewWeek = ViewBag.TopViewWeek as IEnumerable<StoryDTO>;
+    var topViewMonth = ViewBag.TopViewMonth as IEnumerable<StoryDTO>;
+    var topViewYear = ViewBag.TopViewYear as IEnumerable<StoryDTO>;
     var top10 = ViewBag.Top10 as IEnumerable<StoryDTO>;
 }
 
@@ -19,7 +23,7 @@
                             <h2>Fate / Stay Night: Unlimited Blade Works</h2>
                             <p>After 30 days of travel across the world...</p>
                             <a href="#">
-                                <span>Watch Now</span> <i class="fa fa-angle-right"></i>
+                                <span>Read Now</span> <i class="fa fa-angle-right"></i>
                             </a>
                         </div>
                     </div>
@@ -144,27 +148,61 @@
                             <h5>Top Views</h5>
                         </div>
                         <ul class="filter__controls">
-                            <li class="active" data-filter="*">Day</li>
+                            <li class="active" data-filter=".day">Day</li>
                             <li data-filter=".week">Week</li>
                             <li data-filter=".month">Month</li>
                             <li data-filter=".years">Years</li>
                         </ul>
                         <div class="filter__gallery">
+                            @if (topViewDay != null)
+                            {
+                                @foreach (var story in topViewDay)
+                                {
+                                    <div class="product__sidebar__view__item set-bg mix day"
+                                         data-setbg="@story.ImageStory">
+                                        <div class="ep">@story.ListOfChapter.Count / ?</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @story.View</div>
+                                        <h5><a href="#">@story.Title - @story.AuthorName</a></h5>
+                                    </div>
+                                }
+                            }
 
-                            <div class="product__sidebar__view__item set-bg mix day years"
-                                 data-setbg="img/sidebar/tv-1.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Boruto: Naruto next generations</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg mix years month"
-                                 data-setbg="img/sidebar/tv-4.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5>
-                                    <a href="#">Fate/stay night: Heaven's Feel I. presage flower</a>
-                                </h5>
-                            </div>
+                            @if (topViewWeek != null)
+                            {
+                                @foreach (var story in topViewWeek)
+                                {
+                                    <div class="product__sidebar__view__item set-bg mix week"
+                                         data-setbg="@story.ImageStory">
+                                        <div class="ep">@story.ListOfChapter.Count / ?</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @story.View</div>
+                                        <h5><a href="#">@story.Title - @story.AuthorName</a></h5>
+                                    </div>
+                                }
+                            }
+                            @if (topViewMonth != null)
+                            {
+                                @foreach (var story in topViewMonth)
+                                {
+                                    <div class="product__sidebar__view__item set-bg mix month"
+                                         data-setbg="@story.ImageStory">
+                                        <div class="ep">@story.ListOfChapter.Count / ?</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @story.View</div>
+                                        <h5><a href="#">@story.Title - @story.AuthorName</a></h5>
+                                    </div>
+                                }
+                            }
+                            @if (topViewYear != null)
+                            {
+                                @foreach (var story in topViewYear)
+                                {
+                                    <div class="product__sidebar__view__item set-bg mix years"
+                                         data-setbg="@story.ImageStory">
+                                        <div class="ep">@story.ListOfChapter.Count / ?</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @story.View</div>
+                                        <h5><a href="#">@story.Title - @story.AuthorName</a></h5>
+                                    </div>
+                                }
+                            }
 
                         </div>
                     </div>
