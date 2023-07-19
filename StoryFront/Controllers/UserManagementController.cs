@@ -19,12 +19,13 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> UserIndex()
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             List<UserDTO> list = new();
-            //if (token == null)
-            //{
-            //    return NotFound();
-            //}
-            var response = await _userService.GetAllUsersAsync<ResponseDto>("");
+            var response = await _userService.GetAllUsersAsync<ResponseDto>(token);
             if (response != null && response.IsSuccess)
             {
                 list = JsonConvert.DeserializeObject<List<UserDTO>>(Convert.ToString(response.Result));
@@ -34,6 +35,11 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> UserCreate()
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             return View();
         }
 
@@ -41,6 +47,11 @@ namespace StoryFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserCreate(UserDTO userDto)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             ModelState.Remove(nameof(userDto.ImageUser));
             if (userDto.File == null)
             {
@@ -48,14 +59,9 @@ namespace StoryFront.Controllers
             }
             if (ModelState.IsValid)
             {
-                //var token = HttpContext.Session.GetString("token");
-                //if (token == null)
-                //{
-                //    return NotFound();
-                //}
                 userDto.ImageUser = await FirebaseService.CreateImage(userDto.File, "Users");
                 userDto.File = null;
-                var response = await _userService.CreateUserAsync<ResponseDto>(userDto, "");
+                var response = await _userService.CreateUserAsync<ResponseDto>(userDto, token);
                 if (response != null && response.IsSuccess)
                 {
                     return RedirectToAction(nameof(UserIndex));
@@ -66,12 +72,13 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> UserEdit(int userId)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             UserDTO model = new();
-            //if (token == null)
-            //{
-            //    return NotFound();
-            //}
-            var response = await _userService.GetUserByIdAsync<ResponseDto>(userId, "");
+            var response = await _userService.GetUserByIdAsync<ResponseDto>(userId, token);
             if (response != null && response.IsSuccess)
             {
                 model = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(response.Result));
@@ -83,6 +90,11 @@ namespace StoryFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserEdit(UserDTO userDto)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
             ModelState.Remove(nameof(userDto.Email));
             ModelState.Remove(nameof(userDto.Password));
             if (ModelState.IsValid)
@@ -92,7 +104,7 @@ namespace StoryFront.Controllers
                     await FirebaseService.EditImage(userDto.File, userDto.ImageUser, "Users");
                     userDto.File = null;
                 }
-                var response = await _userService.UpdateUserAsync<ResponseDto>(userDto, "");
+                var response = await _userService.UpdateUserAsync<ResponseDto>(userDto, token);
                 if (response != null && response.IsSuccess)
                 {
                     return RedirectToAction(nameof(UserIndex));
@@ -103,7 +115,12 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> UserDelete(int userId)
         {
-            var response = await _userService.DeleteUserAsync<ResponseDto>(userId, "");
+            var token = HttpContext.Session.GetString("token");
+            if (!CheckService.IsAdmin(token))
+            {
+                return NotFound();
+            }
+            var response = await _userService.DeleteUserAsync<ResponseDto>(userId, token);
             if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(UserIndex));

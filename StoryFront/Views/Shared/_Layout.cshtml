@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <script src="../js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <!-- Page Preloder -->
@@ -60,10 +61,10 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
+                                <li class="@(ViewData["Title"] == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
                                 @if (token == null)
                                 {
-                                    <li>
+                                    <li class="@(ViewData["Title"] == "Search" ? "active" : "")">
                                         @{
                                             var categories = ViewBag.Categories as IEnumerable<CategoryDTO>;
                                         }
@@ -75,19 +76,19 @@
                                             }
                                         </ul>
                                     </li>
-                                    <li><a asp-controller="Auth" asp-action="SignUp">Sign Up</a></li>
-                                    <li><a asp-controller="Auth" asp-action="Login">Login</a></li>
+                                    <li class="@(ViewData["Title"] == "Sign Up" ? "active" : "")"><a asp-controller="Auth" asp-action="SignUp">Sign Up</a></li>
+                                    <li class="@(ViewData["Title"] == "Login" ? "active" : "")"><a asp-controller="Auth" asp-action="Login">Login</a></li>
                                 }
                                 else
                                 {
                                     @if (role == "1")
                                     {
-                                        <li><a asp-controller="MangaManagement" asp-action="MangaIndex">Manage Story</a></li>
-                                        <li><a asp-controller="UserManagement" asp-action="UserIndex">Manage User</a></li>
+                                        <li class="@(ViewData["Title"] == "List Manga" ? "active" : "")"><a asp-controller="MangaManagement" asp-action="MangaIndex">Manage Story</a></li>
+                                        <li class="@(ViewData["Title"] == "List User" ? "active" : "")"><a asp-controller="UserManagement" asp-action="UserIndex">Manage User</a></li>
                                     }
                                     else
                                     {
-                                        <li>
+                                        <li class="@(ViewData["Title"] == "Search" ? "active" : "")">
                                             @{
                                                 var categories = ViewBag.Categories as IEnumerable<CategoryDTO>;
                                             }
@@ -165,7 +166,6 @@
     </div>
     <!-- Search model end -->
     <!-- Js Plugins -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/player.js"></script>
     <script src="../js/jquery.nice-select.min.js"></script>
