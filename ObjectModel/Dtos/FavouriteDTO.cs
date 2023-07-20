@@ -8,8 +8,12 @@ namespace ObjectModel.Dtos
 {
     public class FavouriteDTO
     {
-		public int UserId { get; set; }
+        public int UserId { get; set; }
 
-		public int StoryId { get; set; }
-	}
+        //public UserDTO UserDTO { get; set; }
+
+        public int StoryId { get; set; }
+
+        //public StoryDTO StoryDTO { get; set; }
+    }
 }

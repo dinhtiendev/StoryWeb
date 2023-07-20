@@ -23,6 +23,7 @@ namespace DataAccess.Repositories
             try
             {
                 var c = _mapper.Map<AddCommentDTO, Comment>(comment);
+                c.ParentCommentId = null;
                 c.CreatedAt = DateTime.Now;
                 _context.Comments.Add(c);
                 await _context.SaveChangesAsync();
@@ -34,16 +35,15 @@ namespace DataAccess.Repositories
             }
         }
 
-        public async Task<bool> AddReply(int commentId, AddCommentDTO comment)
+        public async Task<bool> AddReply(AddCommentDTO comment)
         {
             try
             {
-                var parentComment = await _context.Comments.FindAsync(commentId);
+                var parentComment = await _context.Comments.FindAsync(comment.ParentCommentId);
                 if (parentComment != null)
                 {
                     var reply = _mapper.Map<Comment>(comment);
-                    reply.ParentCommentId = commentId;
-                    reply.StoryId = parentComment.StoryId;
+                    reply.ParentCommentId = comment.ParentCommentId;
                     reply.CreatedAt = DateTime.Now;
                     _context.Comments.Add(reply);
                     await _context.SaveChangesAsync();
@@ -84,7 +84,6 @@ namespace DataAccess.Repositories
         {
             try
             {
-
                 return true;
             }
             catch (Exception)

@@ -37,18 +37,18 @@ namespace DataAccess.DbContexts
         }
     }
 
-    //public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
-    //{
-    //    ApplicationDbContext IDesignTimeDbContextFactory<ApplicationDbContext>.CreateDbContext(string[] args)
-    //    {
-    //        IConfiguration configuration = new ConfigurationBuilder()
-    //           .SetBasePath(Directory.GetCurrentDirectory())
-    //           .AddJsonFile("appsettings.json").Build();
-    //        var connectionString = configuration.GetConnectionString("DefaultConnection");
-    //        var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-    //        builder.UseSqlServer(connectionString);
-    //        return new ApplicationDbContext(builder.Options);
-    //    }
-    //}
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    {
+        ApplicationDbContext IDesignTimeDbContextFactory<ApplicationDbContext>.CreateDbContext(string[] args)
+        {
+            IConfiguration configuration = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json").Build();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            builder.UseSqlServer(connectionString);
+            return new ApplicationDbContext(builder.Options);
+        }
+    }
 }
 

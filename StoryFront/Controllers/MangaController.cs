@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ObjectModel.Dtos;
+using StoryFront.Helpers;
 using StoryFront.Services.IServices;
 
 namespace StoryFront.Controllers
 {
-	public class MangaController : Controller
+    public class MangaController : Controller
     {
         private readonly IStoryService _storyService;
         private readonly ICommentService _commentService;
@@ -23,9 +24,18 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> MangaDetail(int storyId)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (token != null)
+            {
+                var userId = CheckService.GetUserId(token);
+                ViewBag.UserId = userId;
+            }
+
+
             var responseCt = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
             var responseC = await _commentService.GetAllAsync<ResponseDto>(storyId, null);
             var responseM = await _storyService.GetStoryByIdAsync<ResponseDto>(storyId, null);
+
             if (responseM.IsSuccess && responseC.IsSuccess && responseCt.IsSuccess)
             {
                 var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryDTO>>(Convert.ToString(responseCt.Result));
@@ -54,6 +64,22 @@ namespace StoryFront.Controllers
             return View("Views/Shared/Error.cshtml");
         }
 
+        public async Task<IActionResult> Search(string search)
+        {
+            var responseC = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
+            var responseM = await _storyService.SearchStoriesByNameAsync<ResponseDto>(null, search);
+            if (responseM.IsSuccess && responseC.IsSuccess)
+            {
+                ViewBag.ValueSearh = search;
+                var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryDTO>>(Convert.ToString(responseC.Result));
+                var stories = JsonConvert.DeserializeObject<IEnumerable<StoryDTO>>(Convert.ToString(responseM.Result));
+                ViewBag.Categories = categories;
+                ViewBag.Stories = stories;
+                return View("Views/Manga/SearchManga.cshtml");
+            }
+            return View("Views/Shared/Error.cshtml");
+        }
+
         public async Task<IActionResult> ReadingManga(int storyId, int index)
         {
             //if (chapterId == 0)
@@ -67,7 +93,7 @@ namespace StoryFront.Controllers
             }
             var responseCt = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
             var responseM = await _storyService.GetStoryByIdAsync<ResponseDto>(storyId, null);
-            var responseC = await _chapterService.GetChapterByIndexAsync<ResponseDto>(index,storyId, null);
+            var responseC = await _chapterService.GetChapterByIndexAsync<ResponseDto>(index, storyId, null);
             if (responseM.IsSuccess && responseCt.IsSuccess && responseC.IsSuccess)
             {
                 var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryDTO>>(Convert.ToString(responseCt.Result));

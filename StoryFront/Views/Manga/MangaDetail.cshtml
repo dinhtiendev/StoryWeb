@@ -3,6 +3,7 @@
     ViewData["Title"] = "Manga Detail";
     var manga = ViewBag.Manga as StoryDTO;
     var comments = ViewBag.Comments as IEnumerable<CommentDTO>;
+    var userId = (int)ViewBag.UserId;
 }
 
 <!-- Breadcrumb Begin -->
@@ -26,7 +27,7 @@
         <div class="anime__details__content">
             <div class="row">
                 <div class="col-lg-3">
-                    <a asp-controller="Manga" asp-action="ReadingManga" asp-route-storyId="@manga.StoryId"  asp-route-index="0">
+                    <a asp-controller="Manga" asp-action="ReadingManga" asp-route-storyId="@manga.StoryId" asp-route-index="0">
                         <div class="anime__details__pic set-bg" data-setbg="@manga.ImageStory">
                             @*<div class="comment"><i class="fa fa-comments"></i> 11</div>*@
                             <div class="view"><i class="fa fa-eye"></i> @manga.View</div>
@@ -70,7 +71,7 @@
                         </div>
                         <div class="anime__details__btn">
                             <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                             <a asp-controller="Manga" asp-action="ReadingManga" asp-route-storyId="@manga.StoryId" asp-route-chapterId="0" class="watch-btn">
+                            <a asp-controller="Manga" asp-action="ReadingManga" asp-route-storyId="@manga.StoryId" asp-route-chapterId="0" class="watch-btn">
                                 <span>Read Now</span> <i class="fa fa-angle-right"></i>
                             </a>
                         </div>
@@ -95,11 +96,24 @@
                                 <p>
                                     @c.Content
                                 </p>
-                                <a href="#" class="reply-link">Reply</a>
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <a href="#" class="reply-link">Reply</a>
+                                    </div>
+                                    @if (c.UserId == userId)
+                                    {
+                                        <div class="col-md-2">
+                                            <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@c.CommentId">Delete</a>
+                                        </div>
+                                    }
+                                </div>
 
                                 <div class="anime__details__form reply-form my-2">
-                                    <form action="addreply" method="post">
-                                        <textarea placeholder="Your Reply"></textarea>
+                                    <form asp-action="AddReply" asp-controller="Comment" method="post">
+                                        <input type="hidden" value="@manga.StoryId" name="StoryId" />
+                                        <input type="hidden" value="@c.CommentId" name="ParentCommentId" />
+                                        <textarea name="Content" placeholder="Your Reply"></textarea>
                                         <button style="margin-bottom: 20px;" type="submit"><i class="fa fa-location-arrow"></i> Reply</button>
                                     </form>
                                 </div>
@@ -114,6 +128,12 @@
                                             <div class="anime__review__item__text">
                                                 <h6>@c.UserName - <span>@c.CreatedAt</span></h6>
                                                 <p> @c.Content</p>
+                                                @if (c.UserId == userId)
+                                                {
+                                                    <div class="col-md-2">
+                                                        <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@r.CommentId">Delete</a>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -126,8 +146,9 @@
                     <div class="section-title">
                         <h5>Your Comment</h5>
                     </div>
-                    <form action="#">
-                        <textarea placeholder="Your Comment"></textarea>
+                    <form asp-action="AddComment" asp-controller="Comment" method="post">
+                        <input type="hidden" value="@manga.StoryId" name="StoryId" />
+                        <textarea name="Content" placeholder="Your Comment"></textarea>
                         <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
                     </form>
                 </div>

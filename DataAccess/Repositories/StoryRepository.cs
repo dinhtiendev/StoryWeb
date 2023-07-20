@@ -58,7 +58,12 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<StoryDTO>> GetStoriesByName(string name)
         {
-            IEnumerable<Story> stories = await _context.Stories.Include(x => x.Chapters).Where(x => x.Title.Contains(name)).OrderByDescending(x => x.StoryId).ToListAsync();
+            IEnumerable<Story> stories = await _context.Stories
+               .Include(x => x.Chapters)
+               .ThenInclude(chapter => chapter.Images)
+               .Include(x => x.StoryCategories)
+               .ThenInclude(category => category.Category).Where(x => x.Title.ToLower().Trim().Contains(name.ToLower().Trim()))
+                .OrderByDescending(x => x.StoryId).ToListAsync();
             return _mapper.Map<List<StoryDTO>>(stories);
         }
 

@@ -104,6 +104,16 @@ namespace StoryFront.Services
                 AccessToken = token
             });
         }
+
+        public async Task<T> SearchStoriesByNameAsync<T>(string token, string search)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.storyAPIBase + "/api/Story/SearchStoriesByName/" + search,
+                AccessToken = token
+            });
+        }
     }
 }
 

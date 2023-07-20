@@ -6,6 +6,7 @@ namespace StoryFront.Services.IServices
 	public interface IStoryService
     {
         Task<T> GetAllStorysAsync<T>(string token);
+        Task<T> SearchStoriesByNameAsync<T>(string token, string search);
         Task<T> GetTop4TrendingAsync<T>(string token);
         Task<T> GetTop10PopularAsync<T>(string token);
         Task<T> GetTopViewAsync<T>(DateTime filterDate, string token);

@@ -57,6 +57,24 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
+        [HttpGet("SearchStoriesByName/{search}")]
+        [AllowAnonymous]
+        public async Task<object> SearchStoriesByName(string search)
+        {
+            try
+            {
+                IEnumerable<StoryDTO> storyDtos = await _storyRepository.GetStoriesByName(search);
+                _response.Result = storyDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
         [HttpGet("GetTop10Popular")]
         [AllowAnonymous]
         public async Task<object> GetTop10Popular()

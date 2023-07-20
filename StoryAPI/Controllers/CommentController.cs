@@ -36,7 +36,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpPost("AddComment")]
-        [Authorize]
+        [Authorize(Roles = "2")]
         public async Task<object> AddComment([FromBody] AddCommentDTO comment)
         {
             try
@@ -54,12 +54,12 @@ namespace StoryAPI.Controllers
 
 
         [HttpPost("AddReply")]
-        [Authorize]
-        public async Task<object> AddReply(int commentId, [FromBody] AddCommentDTO comment)
+        [Authorize(Roles = "2")]
+        public async Task<object> AddReply([FromBody] AddCommentDTO comment)
         {
             try
             {
-                var result = await _commentRepository.AddReply(commentId, comment);
+                var result = await _commentRepository.AddReply(comment);
                 _response.Result = result;
             }
             catch (Exception ex)
@@ -70,8 +70,8 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
-        [HttpDelete("DeleteComment")]
-        [Authorize]
+        [HttpDelete("DeleteComment/{commentId}")]
+        [Authorize(Roles = "2")]
         public async Task<object> DeleteComment(int commentId)
         {
             try

@@ -12,7 +12,7 @@ namespace DataAccess.Repositories.IRepositories
     {
         public Task<bool> AddComment(AddCommentDTO comment);
 
-        public Task<bool> AddReply(int commentId, AddCommentDTO comment);
+        public Task<bool> AddReply(AddCommentDTO comment);
 
         public Task<bool> EditComment(AddCommentDTO comment);
 
