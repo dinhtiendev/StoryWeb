@@ -17,16 +17,18 @@ namespace StoryFront.Services
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.POST,
+                Data = comment,
                 Url = SD.storyAPIBase + "/api/Comment/AddComment",
                 AccessToken = token
             });
         }
 
-        public async Task<T> AddReplyAsync<T>(int commentId, AddCommentDTO comment, string token)
+        public async Task<T> AddReplyAsync<T>(AddCommentDTO comment, string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.POST,
+                Data = comment,
                 Url = SD.storyAPIBase + "/api/Comment/AddReply",
                 AccessToken = token
             });
@@ -37,7 +39,7 @@ namespace StoryFront.Services
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.DELETE,
-                Url = SD.storyAPIBase + "/api/Comment/DeleteComment",
+                Url = SD.storyAPIBase + "/api/Comment/DeleteComment/"+commentId,
                 AccessToken = token
             });
         }

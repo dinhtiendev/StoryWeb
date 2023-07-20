@@ -6,7 +6,7 @@ namespace StoryFront.Services.IServices
     {
         Task<T> GetAllAsync<T>(int storyId,string token);
         Task<T> AddCommentAsync<T>(AddCommentDTO comment, string token);
-        Task<T> AddReplyAsync<T>(int commentId, AddCommentDTO comment ,string token);
+        Task<T> AddReplyAsync<T>(AddCommentDTO comment ,string token);
         Task<T> DeleteCommentAsync<T>(int commentId, string token);
     }
 }
