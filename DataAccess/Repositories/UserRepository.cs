@@ -34,7 +34,7 @@ namespace DataAccess.Repositories
         {
             User user = await _context.Users.FirstOrDefaultAsync(x => x.RoleId == 2 && x.UserId == userId);
             return _mapper.Map<UserDTO>(user);
-        }   
+        }
 
         public async Task<UserDTO> GetUserByEmailAndPassword(string email, string password)
         {
@@ -63,7 +63,14 @@ namespace DataAccess.Repositories
             User oldUser = await _context.Users.FirstOrDefaultAsync(x => x.RoleId == 2 && x.UserId == userDto.UserId);
             oldUser.FullName = userDto.FullName;
             oldUser.UserName = userDto.UserName;
-            oldUser.ImageUser = userDto.ImageUser;
+            if (userDto.File != null)
+            {
+                oldUser.ImageUser = userDto.ImageUser;
+            }
+            if (!string.IsNullOrEmpty(userDto.Email))
+            {
+                oldUser.Email = userDto.Email;
+            }
             //oldUser.Email = userDto.Email;
             //oldUser.Password = userDto.Password;
             oldUser.IsMale = userDto.IsMale;
@@ -84,6 +91,17 @@ namespace DataAccess.Repositories
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<bool> CheckDuplicate(string email, string userName)
+        {
+            var user = await _context.Users.Where(x => x.Email.ToLower() == email.ToLower()
+            || x.UserName.ToLower() == userName.ToLower()).FirstOrDefaultAsync();
+            if (user != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

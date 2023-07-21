@@ -12,6 +12,7 @@ namespace DataAccess.Repositories.IRepositories
         Task<UserDTO> GetUserByEmail(string email);
         Task<UserDTO> CreateUser(UserDTO userDto);
         Task<UserDTO> UpdateUser(UserDTO userDto);
+        Task<bool> CheckDuplicate(string email, string userName);
         Task<bool> DeleteUser(int userId);
     }
 }

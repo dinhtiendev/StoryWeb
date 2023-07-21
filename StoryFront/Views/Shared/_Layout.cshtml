@@ -81,6 +81,7 @@
                                 }
                                 else
                                 {
+                                    <li><a asp-controller="User" asp-action="Profile">Profile</a></li>
                                     @if (role == "1")
                                     {
                                         <li class="@(ViewData["Title"] == "List Manga" ? "active" : "")"><a asp-controller="MangaManagement" asp-action="MangaIndex">Manage Story</a></li>
