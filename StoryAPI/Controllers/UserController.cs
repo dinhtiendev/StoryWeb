@@ -113,6 +113,31 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
+        [HttpPut("ChangePassword")]
+        [Authorize]
+        public async Task<object> ChangePassword([FromBody] UserDTO userDto)
+        {
+            try
+            {
+                if (await _userRepository.GetUserById(userDto.UserId) != null)
+                {
+                    UserDTO model = await _userRepository.UpdatePassword(userDto);
+                    _response.Result = model;
+                }
+                else
+                {
+                    throw new Exception("This user is NOT exist");
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
         [HttpDelete]
         [Route("{id}")]
         [Authorize(Roles = "1")]

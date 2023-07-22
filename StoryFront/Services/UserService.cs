@@ -64,6 +64,17 @@ namespace StoryFront.Services
                 AccessToken = token
             });
         }
+
+        public async Task<T> UpdatePasswordAsync<T>(UserDTO userDto, string token)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = userDto,
+                Url = SD.storyAPIBase + "/api/User/ChangePassword",
+                AccessToken = token
+            });
+        }
     }
 }
 
