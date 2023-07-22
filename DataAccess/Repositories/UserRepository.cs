@@ -80,6 +80,15 @@ namespace DataAccess.Repositories
             return _mapper.Map<User, UserDTO>(oldUser);
         }
 
+        public async Task<UserDTO> UpdatePassword(UserDTO userDto)
+        {
+            User oldUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == userDto.UserId);
+            oldUser.Password = userDto.Password;
+            _context.Users.Update(oldUser);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<User, UserDTO>(oldUser);
+        }
+
         public async Task<bool> DeleteUser(int userId)
         {
             User user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == userId);

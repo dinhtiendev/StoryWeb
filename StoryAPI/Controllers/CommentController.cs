@@ -36,7 +36,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpPost("AddComment")]
-        [Authorize(Roles = "2")]
+        [Authorize]
         public async Task<object> AddComment([FromBody] AddCommentDTO comment)
         {
             try
@@ -54,7 +54,7 @@ namespace StoryAPI.Controllers
 
 
         [HttpPost("AddReply")]
-        [Authorize(Roles = "2")]
+        [Authorize]
         public async Task<object> AddReply([FromBody] AddCommentDTO comment)
         {
             try
@@ -71,7 +71,7 @@ namespace StoryAPI.Controllers
         }
 
         [HttpDelete("DeleteComment/{commentId}")]
-        [Authorize(Roles = "2")]
+        [Authorize]
         public async Task<object> DeleteComment(int commentId)
         {
             try

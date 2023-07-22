@@ -11,7 +11,7 @@ namespace StoryFront.Controllers
         private readonly IUserService _userService;
         private readonly ICategoryService _categoryService;
 
-        public UserController( IUserService userService, ICategoryService categoryService)
+        public UserController(IUserService userService, ICategoryService categoryService)
         {
             _userService = userService;
             _categoryService = categoryService;
@@ -42,16 +42,16 @@ namespace StoryFront.Controllers
             var token = HttpContext.Session.GetString("token");
             if (token != null)
             {
-                //if (!string.IsNullOrEmpty(errorMess))
-                //{
-                //    errorMess = "Error";
-                //}
-                ViewBag.Duplicate = errorMess;
                 var userId = CheckService.GetUserId(token);
                 var responseCt = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
                 var response = await _userService.GetUserByIdAsync<ResponseDto>(userId, token);
                 if (response.IsSuccess && responseCt.IsSuccess)
                 {
+                    if (!string.IsNullOrEmpty(errorMess))
+                    {
+                        ViewBag.Mess = errorMess;
+                    }
+
                     var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryDTO>>(Convert.ToString(responseCt.Result));
                     ViewBag.Categories = categories;
                     var currentUser = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(response.Result));
@@ -94,10 +94,27 @@ namespace StoryFront.Controllers
             var token = HttpContext.Session.GetString("token");
             if (token != null)
             {
-                var response = await _userService.UpdateUserAsync<ResponseDto>(user, token);
+                var userId = CheckService.GetUserId(token);
+                var responseU = await _userService.GetUserByIdAsync<ResponseDto>(userId, token);
+                user.Email = user.FullName = user.UserName = user.ImageUser = "";
+                user.UserId = userId;
+                var currentUser = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(responseU.Result));
+
+                if (user.Password != currentUser.Password)
+                {
+                    return await ChangePasswordView("mess1");
+                }
+
+                if (newPassword != rePassword)
+                {
+                    return await ChangePasswordView("mess2");
+                }
+
+                user.Password = newPassword;
+                var response = await _userService.UpdatePasswordAsync<ResponseDto>(user, token);
                 if (response.IsSuccess)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ChangePasswordView", "User", new { Mess = "" });
                 }
             }
             return NotFound();

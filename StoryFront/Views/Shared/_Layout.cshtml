@@ -81,7 +81,14 @@
                                 }
                                 else
                                 {
-                                    <li><a asp-controller="User" asp-action="Profile">Profile</a></li>
+                                    <li class="">
+                                        <a href="#"> Information <span class="arrow_carrot-down"></span></a>
+                                        <ul class="dropdown">
+                                            <li><a asp-controller="User" asp-action="Profile">Profile</a></li>
+                                            <li><a asp-controller="User" asp-action="ChangePasswordView">Change Password</a></li>
+                                            <li><a asp-controller="Favourite" asp-action="GetFavourites">Favourites</a></li>
+                                        </ul>
+                                    </li>
                                     @if (role == "1")
                                     {
                                         <li class="@(ViewData["Title"] == "List Manga" ? "active" : "")"><a asp-controller="MangaManagement" asp-action="MangaIndex">Manage Story</a></li>
