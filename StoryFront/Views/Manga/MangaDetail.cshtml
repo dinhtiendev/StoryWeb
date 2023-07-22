@@ -3,7 +3,7 @@
     ViewData["Title"] = "Manga Detail";
     var manga = ViewBag.Manga as StoryDTO;
     var comments = ViewBag.Comments as IEnumerable<CommentDTO>;
-    var userId = (int)ViewBag.UserId;
+    var userId = ViewBag.UserId;
 }
 
 <!-- Breadcrumb Begin -->
@@ -101,11 +101,14 @@
                                     <div class="col-md-2">
                                         <a href="#" class="reply-link">Reply</a>
                                     </div>
-                                    @if (c.UserId == userId)
+                                    @if (userId != null)
                                     {
-                                        <div class="col-md-2">
-                                            <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@c.CommentId">Delete</a>
-                                        </div>
+                                        @if (c.UserId == (int)userId)
+                                        {
+                                            <div class="col-md-2">
+                                                <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@c.CommentId">Delete</a>
+                                            </div>
+                                        }
                                     }
                                 </div>
 
@@ -128,11 +131,14 @@
                                             <div class="anime__review__item__text">
                                                 <h6>@c.UserName - <span>@c.CreatedAt</span></h6>
                                                 <p> @c.Content</p>
-                                                @if (c.UserId == userId)
+                                                @if (userId != null)
                                                 {
-                                                    <div class="col-md-2">
-                                                        <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@r.CommentId">Delete</a>
-                                                    </div>
+                                                    @if (c.UserId == (int)userId)
+                                                    {
+                                                        <div class="col-md-2">
+                                                            <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@c.CommentId">Delete</a>
+                                                        </div>
+                                                    }
                                                 }
                                             </div>
                                         </div>
