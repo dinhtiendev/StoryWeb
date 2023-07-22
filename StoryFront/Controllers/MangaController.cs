@@ -82,11 +82,6 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> ReadingManga(int storyId, int index)
         {
-            //if (chapterId == 0)
-            //{
-            //    chapterId = 1;
-            //}
-
             if (index == 0)
             {
                 index = 1;

@@ -6,6 +6,6 @@ namespace StoryFront.Services.IServices
     {
         Task<T> GetAllAsync<T>(string token, int userId);
         Task<T> AddFavouriteAsync<T>(string token, FavouriteDTO add);
-        Task<T> DeleteFavouriteAsync<T>(string token, int userId, int storyId);
+        Task<T> DeleteFavouriteAsync<T>(string token, FavouriteDTO delete);
     }
 }

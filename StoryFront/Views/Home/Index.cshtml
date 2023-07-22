@@ -74,20 +74,26 @@
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <a href="/Manga/MangaDetail?storyId=@s.StoryId">
-                                    <div class="product__item__pic set-bg"
-                                     data-setbg="@s.ImageStory">
-                                        <div class="ep">@s.ListOfChapter.Count / ?</div>
-                                        @*<div class="comment">
-                                            <i class="fa fa-comments"></i> 11
+                                        <div class="product__item__pic set-bg"
+                                         data-setbg="@s.ImageStory">
+                                            <div class="ep">@s.ListOfChapter.Count / ?</div>
+                                            @*<div class="comment">
+                                        <i class="fa fa-comments"></i> 11
                                         </div>*@
-                                        <div class="view"><i class="fa fa-eye"></i> @s.View</div>
-                                    </div>
+                                            <div class="view"><i class="fa fa-eye"></i> @s.View</div>
+                                        </div>
                                     </a>
                                     <div class="product__item__text">
                                         <ul>
                                             <li>@s.IsActive</li>
                                             <li>Movie</li>
                                         </ul>
+                                        <div class="form-check my-2">
+                                            <input class="form-check-input" type="checkbox" id="favorite-checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId">
+                                            <label class="form-check-label text-white" for="favorite-checkbox">
+                                                Add to Favorites
+                                            </label>
+                                        </div>
                                         <h5>
                                             <a href="#">@s.Title - @s.AuthorName</a>
                                         </h5>
@@ -118,25 +124,30 @@
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <a href="/Manga/MangaDetail?storyId=@s.StoryId">
-                                    <div class="product__item__pic set-bg"
-                                     data-setbg="@s.ImageStory">
-                                        <div class="ep">@s.ListOfChapter.Count / ?</div>
-                                       @* <div class="comment">
-                                            <i class="fa fa-comments"></i> 11
+                                        <div class="product__item__pic set-bg"
+                                         data-setbg="@s.ImageStory">
+                                            <div class="ep">@s.ListOfChapter.Count / ?</div>
+                                            @* <div class="comment">
+                                        <i class="fa fa-comments"></i> 11
                                         </div>*@
-                                        <div class="view"><i class="fa fa-eye"></i> @s.View</div>
-                                    </div>
+                                            <div class="view"><i class="fa fa-eye"></i> @s.View</div>
+                                        </div>
                                     </a>
                                     <div class="product__item__text">
                                         <ul>
                                             <li>Active</li>
                                             <li>Movie</li>
                                         </ul>
+                                        <div class="form-check my-2">
+                                            <input class="form-check-input" type="checkbox" id="favorite-checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId">
+                                            <label class="form-check-label text-white" for="favorite-checkbox">
+                                                Add to Favorites
+                                            </label>
+                                        </div>
                                         <h5><a href="#">@s.Title - @s.AuthorName</a></h5>
                                     </div>
                                 </div>
                             </div>
-
                         }
                     </div>
                 </div>
@@ -159,7 +170,7 @@
                                 @foreach (var story in topViewDay)
                                 {
                                     <div class="product__sidebar__view__item set-bg mix day"
-                                         data-setbg="@story.ImageStory">
+                                 data-setbg="@story.ImageStory">
                                         <div class="ep">@story.ListOfChapter.Count / ?</div>
                                         <div class="view"><i class="fa fa-eye"></i> @story.View</div>
                                         <h5><a href="#">@story.Title - @story.AuthorName</a></h5>
@@ -172,7 +183,7 @@
                                 @foreach (var story in topViewWeek)
                                 {
                                     <div class="product__sidebar__view__item set-bg mix week"
-                                         data-setbg="@story.ImageStory">
+                                 data-setbg="@story.ImageStory">
                                         <div class="ep">@story.ListOfChapter.Count / ?</div>
                                         <div class="view"><i class="fa fa-eye"></i> @story.View</div>
                                         <h5><a href="#">@story.Title - @story.AuthorName</a></h5>
@@ -184,7 +195,7 @@
                                 @foreach (var story in topViewMonth)
                                 {
                                     <div class="product__sidebar__view__item set-bg mix month"
-                                         data-setbg="@story.ImageStory">
+                                 data-setbg="@story.ImageStory">
                                         <div class="ep">@story.ListOfChapter.Count / ?</div>
                                         <div class="view"><i class="fa fa-eye"></i> @story.View</div>
                                         <h5><a href="#">@story.Title - @story.AuthorName</a></h5>
@@ -196,7 +207,7 @@
                                 @foreach (var story in topViewYear)
                                 {
                                     <div class="product__sidebar__view__item set-bg mix years"
-                                         data-setbg="@story.ImageStory">
+                                 data-setbg="@story.ImageStory">
                                         <div class="ep">@story.ListOfChapter.Count / ?</div>
                                         <div class="view"><i class="fa fa-eye"></i> @story.View</div>
                                         <h5><a href="#">@story.Title - @story.AuthorName</a></h5>

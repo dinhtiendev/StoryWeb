@@ -17,17 +17,18 @@ namespace StoryFront.Services
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.POST,
+                Data = add,
                 Url = SD.storyAPIBase + "/api/Favourite/AddFavourite",
                 AccessToken = token
             });
         }
 
-        public async Task<T> DeleteFavouriteAsync<T>(string token, int userId, int storyId)
+        public async Task<T> DeleteFavouriteAsync<T>(string token, FavouriteDTO add)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.DELETE,
-                Url = SD.storyAPIBase + "/api/Favourite/DeleteFavourite/"+userId,
+                Url = SD.storyAPIBase + "/api/Favourite/DeleteFavourite/"+add.UserId,
                 AccessToken = token
             });
         }
