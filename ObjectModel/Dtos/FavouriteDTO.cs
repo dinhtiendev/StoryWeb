@@ -10,10 +10,10 @@ namespace ObjectModel.Dtos
     {
         public int UserId { get; set; }
 
-        //public UserDTO UserDTO { get; set; }
+        public UserDTO UserDTO { get; set; }
 
         public int StoryId { get; set; }
 
-        //public StoryDTO StoryDTO { get; set; }
+        public StoryDTO StoryDTO { get; set; }
     }
 }

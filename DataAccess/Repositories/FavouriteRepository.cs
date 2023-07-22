@@ -39,7 +39,8 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<FavouriteDTO>> GetFavourites(int userId)
         {
-            var result = await _context.Favourites.Include(x => x.User).Include(x => x.Story)
+            var result = await _context.Favourites.Include(x => x.User).Include(x => x.Story).ThenInclude(x => x.Chapters).ThenInclude(x => x.Images)
+                .Include(x => x.Story).ThenInclude(x => x.StoryCategories).ThenInclude(x => x.Category)
                 .Where(x => x.UserId == userId).ToListAsync();
             return _mapper.Map<List<FavouriteDTO>>(result);
         }

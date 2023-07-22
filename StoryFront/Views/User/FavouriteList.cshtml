@@ -1,10 +1,7 @@
 ﻿@using ObjectModel.Dtos
 @{
-    ViewData["Title"] = "Search";
-}
-@{
-    var stories = ViewBag.Stories as IEnumerable<StoryDTO>;
-    var value = (string)ViewBag.ValueSearh;
+    ViewData["Title"] = "Favourite List";
+    var favourites = ViewBag.Favourites as IEnumerable<FavouriteDTO>;
 }
 <!-- Breadcrumb Begin -->
 <div class="breadcrumb-option">
@@ -13,11 +10,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i>Home</a>
-                    @if (value == null)
-                    {
-                        <a href="#">Category</a>
-                        <span>@stories.FirstOrDefault().ListOfCategory.FirstOrDefault().CategoryName</span>
-                    }
+                    <a href="#">Favourite</a>
                 </div>
             </div>
         </div>
@@ -33,18 +26,6 @@
                     <div class="product__page__title">
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-6">
-                                @if (value == null)
-                                {
-                                    <div class="section-title">
-                                        <h4>@stories.FirstOrDefault().ListOfCategory.FirstOrDefault().CategoryName</h4>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="section-title">
-                                        <h4>Search Results For ' <span class="text-danger">@value</span> '</h4>
-                                    </div>
-                                }
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 @*<div class="product__page__filter">
@@ -59,17 +40,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        @if (stories.Any())
+                        @if (favourites.Any())
                         {
-                            @foreach (var item in stories)
+                            @foreach (var item in favourites)
                             {
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <a asp-controller="Manga" asp-action="MangaDetail" asp-route-storyId="@item.StoryId">
-                                            <div class="product__item__pic set-bg" data-setbg="@item.ImageStory">
-                                                <div class="ep">@item.ListOfChapter.Count / ?</div>
+                                        <a asp-controller="Manga" asp-action="MangaDetail" asp-route-storyId="@item.StoryDTO.StoryId">
+                                            <div class="product__item__pic set-bg" data-setbg="@item.StoryDTO.ImageStory">
+                                                <div class="ep">@item.StoryDTO.ListOfChapter.Count / ?</div>
                                                 @*<div class="comment"><i class="fa fa-comments"></i> 11</div>*@
-                                                <div class="view"><i class="fa fa-eye"></i> @item.View</div>
+                                                <div class="view"><i class="fa fa-eye"></i> @item.StoryDTO.View</div>
                                             </div>
                                         </a>
                                         <div class="product__item__text">
@@ -77,13 +58,7 @@
                                                 <li>Active</li>
                                                 <li>Movie</li>
                                             </ul>
-                                            <div class="form-check my-2">
-                                                <input class="form-check-input" type="checkbox" id="favorite-checkbox">
-                                                <label class="form-check-label text-white" for="favorite-checkbox">
-                                                    Add to Favorites
-                                                </label>
-                                            </div>
-                                            <h5><a href="#">@item.Title</a></h5>
+                                            <h5><a href="#">@item.StoryDTO.Title</a></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -92,12 +67,12 @@
                         else
                         {
                             <div class="section-title">
-                                <h4><span class="text-danger">Results Not Found</span></h4>
+                                <h4><span class="text-danger">You haven't liked any stories yet.</span></h4>
                             </div>
                         }
                     </div>
                 </div>
-                @* <div class="product__pagination">
+                @*<div class="product__pagination">
                 <a href="#" class="current-page">1</a>
                 <a href="#">2</a>
                 <a href="#">3</a>

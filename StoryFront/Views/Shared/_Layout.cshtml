@@ -181,6 +181,26 @@
     <script src="../js/jquery.slicknav.js"></script>
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".favorite-checkbox").on("click", function() {
+                var storyId = $(this).data("story-id");
+                $.ajax({
+                    type: "POST",
+                    url: "/Favourite/AddFavourite",
+                    data: JSON.stringify({ StoryId: storyId }),
+                    contentType: "application/json",
+                    success: function(data) {
+                        console.log("Successfully.");
+                    },
+                    error: function(error) {
+                        console.error("Error.");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 

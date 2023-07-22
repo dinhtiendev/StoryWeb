@@ -19,7 +19,7 @@ namespace StoryAPI.Controllers
             _response = new ResponseDto();
         }
 
-        [HttpGet("GetFavourties/{userId}")]
+        [HttpGet("GetFavourites/{userId}")]
         [Authorize]
         public async Task<object> GetFavourties(int userId)
         {

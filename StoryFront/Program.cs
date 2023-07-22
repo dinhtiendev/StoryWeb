@@ -21,6 +21,8 @@ builder.Services.AddHttpClient<ICommentService, CommentService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddHttpClient<IAuthService, AuthService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddHttpClient<IFavouriteService, FavouriteService>();
+builder.Services.AddScoped<IFavouriteService, FavouriteService>();
 
 builder.Services.AddHttpContextAccessor();
 
