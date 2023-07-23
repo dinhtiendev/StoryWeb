@@ -76,25 +76,6 @@ namespace StoryAPI.Controllers
             return _response;
         }
 
-        [HttpPut]
-        [Route("UpdateView/story/{storyId}/index/{index}")]
-        [AllowAnonymous]
-        public async Task<object> UpdateView(int index, int storyId)
-        {
-            try
-            {
-                ChapterDTO chapterDto = await _chapterRepository.UpdateView(index, storyId);
-                _response.Result = chapterDto;
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessages
-                     = new List<string>() { ex.ToString() };
-            }
-            return _response;
-        }
-
         [HttpPost]
         [Authorize(Roles = "1")]
         public async Task<object> Post([FromBody] ChapterDTO chapterDto)

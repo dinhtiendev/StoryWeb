@@ -74,16 +74,5 @@ namespace DataAccess.Repositories
             return true;
         }
 
-        public async Task<ChapterDTO> UpdateView(int index, int storyId)
-        {
-            var story = await _context.Stories.FirstOrDefaultAsync(x => x.StoryId == storyId);
-            story.View = story.View + 1;
-            Chapter chapter = await _context.Chapters.Include(x => x.Images).FirstOrDefaultAsync(x => x.Index == index && x.StoryId == storyId);
-            chapter.View = chapter.View + 1;
-            _context.Stories.Update(story);
-            _context.Chapters.Update(chapter);
-            await _context.SaveChangesAsync();
-            return _mapper.Map<ChapterDTO>(chapter);
-        }
     }
 }

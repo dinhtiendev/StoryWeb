@@ -43,7 +43,7 @@ namespace StoryFront.Controllers
                 HttpContext.Session.SetString("token", token);
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            return await Login();
         }
 
         public async Task<IActionResult> SignUp()

@@ -7,8 +7,10 @@ namespace DataAccess.Repositories.IRepositories
     {
         Task<IEnumerable<FavouriteDTO>> GetFavourites(int userId);
 
-        Task<bool> AddFavourite(FavouriteDTO favourite);
+        Task<Favourite> GetFavourite(int userId, int storyId);
 
-        Task<bool> RemoveFavourite(FavouriteDTO favourite);
+        Task<bool> AddFavourite(AddFavouriteDTO favourite);
+
+        Task<bool> RemoveFavourite(AddFavouriteDTO favourite);
     }
 }

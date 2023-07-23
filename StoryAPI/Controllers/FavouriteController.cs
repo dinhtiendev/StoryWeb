@@ -38,7 +38,7 @@ namespace StoryAPI.Controllers
 
         [HttpPost("AddFavourite")]
         [Authorize]
-        public async Task<object> AddFavourite([FromBody] FavouriteDTO favourite)
+        public async Task<object> AddFavourite([FromBody] AddFavouriteDTO favourite)
         {
             try
             {
@@ -54,13 +54,13 @@ namespace StoryAPI.Controllers
         }
 
 
-        [HttpPost("DeleteFavourite")]
+        [HttpDelete("DeleteFavourite/{userId}/{storyId}")]
         [Authorize]
-        public async Task<object> DeleteFavourite(FavouriteDTO favourite)
+        public async Task<object> DeleteFavourite(AddFavouriteDTO f)
         {
             try
             {
-                var result = await _favouriteRepository.RemoveFavourite(favourite);
+                var result = await _favouriteRepository.RemoveFavourite(f);
                 _response.Result = result;
             }
             catch (Exception ex)

@@ -12,11 +12,13 @@ public class HomeController : Controller
 {
     private readonly IStoryService _storyService;
     private readonly ICategoryService _categoryService;
+    private readonly IFavouriteService _favouriteService;
 
-    public HomeController(IStoryService storyService,ICategoryService categoryService)
+    public HomeController(IStoryService storyService,ICategoryService categoryService, IFavouriteService favouriteService)
     {
         _storyService = storyService;
         _categoryService = categoryService;
+        _favouriteService = favouriteService;
     }
 
     public async Task<IActionResult> Index()
@@ -33,6 +35,16 @@ public class HomeController : Controller
         var responseTopViewMonth = await _storyService.GetTopViewAsync<ResponseDto>(filterMonth, "");
         var responseTopViewYear = await _storyService.GetTopViewAsync<ResponseDto>(filterYear, "");
         var response10 = await _storyService.GetTop10PopularAsync<ResponseDto>("");
+
+        var token = HttpContext.Session.GetString("token");
+        if (token != null)
+        {
+            var uid = CheckService.GetUserId(token);
+            var f = await _favouriteService.GetAllAsync<ResponseDto>(token, uid);
+            var rf = JsonConvert.DeserializeObject<IEnumerable<FavouriteDTO>>(Convert.ToString(f.Result));
+            ViewBag.Favourites = rf;
+            ViewBag.Uid = uid;
+        }
 
         var checkRespose = responseC.IsSuccess && response4.IsSuccess && response10.IsSuccess && responseTopViewDay.IsSuccess && responseTopViewWeek.IsSuccess && responseTopViewMonth.IsSuccess && responseTopViewYear.IsSuccess;
         if (checkRespose)

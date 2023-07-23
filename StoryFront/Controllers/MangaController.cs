@@ -13,13 +13,15 @@ namespace StoryFront.Controllers
         private readonly ICommentService _commentService;
         private readonly ICategoryService _categoryService;
         private readonly IChapterService _chapterService;
+        private readonly IFavouriteService _favouriteService;
 
-        public MangaController(IStoryService storyService, ICommentService commentService, ICategoryService categoryService, IChapterService chapterService)
+        public MangaController(IStoryService storyService, ICommentService commentService, ICategoryService categoryService, IChapterService chapterService, IFavouriteService favouriteService)
         {
             _storyService = storyService;
             _commentService = commentService;
             _categoryService = categoryService;
             _chapterService = chapterService;
+            _favouriteService = favouriteService;
         }
 
         public async Task<IActionResult> MangaDetail(int storyId)
@@ -51,6 +53,16 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> SearchManga(int categoryId)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (token != null)
+            {
+                var uid = CheckService.GetUserId(token);
+                var f = await _favouriteService.GetAllAsync<ResponseDto>(token, uid);
+                var rf = JsonConvert.DeserializeObject<IEnumerable<FavouriteDTO>>(Convert.ToString(f.Result));
+                ViewBag.Favourites = rf;
+                ViewBag.Uid = uid;
+            }
+
             var responseC = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
             var responseM = await _storyService.GetStoryByCategoryId<ResponseDto>(categoryId, null);
             if (responseM.IsSuccess && responseC.IsSuccess)
@@ -66,6 +78,16 @@ namespace StoryFront.Controllers
 
         public async Task<IActionResult> Search(string search)
         {
+            var token = HttpContext.Session.GetString("token");
+            if (token != null)
+            {
+                var uid = CheckService.GetUserId(token);
+                var f = await _favouriteService.GetAllAsync<ResponseDto>(token, uid);
+                var rf = JsonConvert.DeserializeObject<IEnumerable<FavouriteDTO>>(Convert.ToString(f.Result));
+                ViewBag.Favourites = rf;
+                ViewBag.Uid = uid;
+            }
+
             var responseC = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
             var responseM = await _storyService.SearchStoriesByNameAsync<ResponseDto>(null, search);
             if (responseM.IsSuccess && responseC.IsSuccess)

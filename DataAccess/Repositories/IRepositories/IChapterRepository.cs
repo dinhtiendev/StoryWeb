@@ -12,7 +12,6 @@ namespace DataAccess.Repositories.IRepositories
         Task<IEnumerable<ChapterDTO>> GetChapterByStoryId(int storyId);
         Task<ChapterDTO> GetChapterById(int chapterId);
         Task<ChapterDTO> GetChapterByIndex(int index, int storyId);
-        Task<ChapterDTO> UpdateView(int index, int storyId);
         Task<ChapterDTO> CreateChapter(ChapterDTO chapterDto);
         Task<bool> DeleteChapter(int chapterId);
     }

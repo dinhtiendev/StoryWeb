@@ -64,16 +64,6 @@ namespace StoryFront.Services
             });
         }
 
-        public async Task<T> UpdateViewAsync<T>(int index, int storyId, string token)
-        {
-            return await this.SendAsync<T>(new ApiRequest()
-            {
-                ApiType = SD.ApiType.PUT,
-                Data = GetChapterByIndexAsync<T>(index, storyId, token),
-                Url = SD.storyAPIBase + $"/api/UpdateView/Chapter/story/{storyId}/index/{index}",
-                AccessToken = token
-            });
-        }
     }
 }
 

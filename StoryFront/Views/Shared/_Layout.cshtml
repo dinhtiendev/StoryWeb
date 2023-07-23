@@ -183,22 +183,49 @@
     <script src="../js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $(".favorite-checkbox").on("click", function() {
-                var storyId = $(this).data("story-id");
-                $.ajax({
-                    type: "POST",
-                    url: "/Favourite/AddFavourite",
-                    data: JSON.stringify({ StoryId: storyId }),
-                    contentType: "application/json",
-                    success: function(data) {
-                        console.log("Successfully.");
-                    },
-                    error: function(error) {
-                        console.error("Error.");
+        function addToFavorites(storyId) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddFavourite", "Favourite")',
+                data: { storyId: storyId },
+                success: function(result) {
+                    if (result.success) {
+                        location.reload();
+                    } else {
+                        console.log('Failed to add.');
                     }
-                });
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error : ' + error);
+                }
             });
+        }
+
+        function deleteFromFavorites(storyId) {
+            $.ajax({
+                type: 'DELETE',
+                url: '@Url.Action("DeleteFavourite", "Favourite")',
+                data: { storyId: storyId },
+                success: function(result) {
+                    if (result.success) {
+                        location.reload();
+                    } else {
+                        console.log('Failed to remove.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error : ' + error);
+                }
+            });
+        }
+
+        $(document).on('change', '.form-check-input', function() {
+            var storyId = $(this).data('story-id');
+            if ($(this).is(':checked')) {
+                addToFavorites(storyId);
+            } else {
+                deleteFromFavorites(storyId);
+            }
         });
     </script>
 </body>
