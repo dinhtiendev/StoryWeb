@@ -17,12 +17,12 @@ namespace StoryFront.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> AddFavourite(FavouriteDTO add)
+        public async Task<IActionResult> AddFavourite(AddFavouriteDTO add)
         {
             var token = HttpContext.Session.GetString("token");
             if (token == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Auth", new { Value = "" });
             }
             add.UserId = CheckService.GetUserId(token);
             var response = await _favouriteService.AddFavouriteAsync<ResponseDto>(token, add);
@@ -34,14 +34,19 @@ namespace StoryFront.Controllers
             return BadRequest();
         }
 
-        public async Task<IActionResult> DeleteFavourite(FavouriteDTO delete)
+        public async Task<IActionResult> DeleteFavourite(AddFavouriteDTO delete)
         {
             var token = HttpContext.Session.GetString("token");
             if (token == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Auth", new { Value = "" });
             }
-
+            delete.UserId = CheckService.GetUserId(token);
+            var response = await _favouriteService.DeleteFavouriteAsync<ResponseDto>(token, delete);
+            if (response.IsSuccess)
+            {
+                return Ok(new { success = true });
+            }
 
             return BadRequest();
         }
@@ -60,10 +65,11 @@ namespace StoryFront.Controllers
                     var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryDTO>>(Convert.ToString(responseC.Result));
                     ViewBag.Favourites = result;
                     ViewBag.Categories = categories;
+                    ViewBag.Uid = userId;
                     return View("Views/User/FavouriteList.cshtml");
                 }
             }
-            return NotFound();
+            return RedirectToAction("Index", "Home");
 
         }
     }

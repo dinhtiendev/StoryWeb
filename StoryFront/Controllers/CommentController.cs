@@ -21,13 +21,9 @@ namespace StoryFront.Controllers
             var token = HttpContext.Session.GetString("token");
             if (token == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Auth", new { Value = "" });
             }
             var userId = CheckService.GetUserId(token);
-            if (userId == 0)
-            {
-                return NotFound();
-            }
             add.UserId = userId;
             var c = await _commentService.AddReplyAsync<ResponseDto>(add, token);
             if (c.IsSuccess)
@@ -43,14 +39,10 @@ namespace StoryFront.Controllers
             var token = HttpContext.Session.GetString("token");
             if (token == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Auth" ,new {Value = ""});
             }
 
             var userId = CheckService.GetUserId(token);
-            if (userId == 0)
-            {
-                return NotFound();
-            }
             add.UserId = userId;
             var c = await _commentService.AddCommentAsync<ResponseDto>(add, token);
             if (c.IsSuccess)
@@ -66,7 +58,7 @@ namespace StoryFront.Controllers
             var token = HttpContext.Session.GetString("token");
             if (token == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Auth" ,new {Value = ""});
             }
 
             var c = await _commentService.DeleteCommentAsync<ResponseDto>(commentId, token);

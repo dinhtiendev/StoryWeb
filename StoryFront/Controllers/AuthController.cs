@@ -21,6 +21,7 @@ namespace StoryFront.Controllers
             _categoryService = categoryService;
 		}
 
+        [HttpGet]
         public async Task<IActionResult> Login()
         {
             var responseC = await _categoryService.GetAllCategoriesAsync<ResponseDto>("");
@@ -43,7 +44,7 @@ namespace StoryFront.Controllers
                 HttpContext.Session.SetString("token", token);
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            return await Login();
         }
 
         public async Task<IActionResult> SignUp()

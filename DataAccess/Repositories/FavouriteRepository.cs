@@ -23,7 +23,7 @@ namespace DataAccess.Repositories
             _mapper = mapper;
         }
 
-        public async Task<bool> AddFavourite(FavouriteDTO favourite)
+        public async Task<bool> AddFavourite(AddFavouriteDTO favourite)
         {
             try
             {
@@ -45,7 +45,14 @@ namespace DataAccess.Repositories
             return _mapper.Map<List<FavouriteDTO>>(result);
         }
 
-        public async Task<bool> RemoveFavourite(FavouriteDTO favourite)
+        public async Task<Favourite> GetFavourite(int userId, int storyId)
+        {
+            var result = await _context.Favourites.
+                FirstOrDefaultAsync(x => x.UserId == userId && x.StoryId == storyId);
+            return result;
+        }
+
+        public async Task<bool> RemoveFavourite(AddFavouriteDTO favourite)
         {
             try
             {

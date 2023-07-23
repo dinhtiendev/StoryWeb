@@ -1,4 +1,5 @@
-﻿@using ObjectModel.Dtos
+﻿@inject IHttpContextAccessor httpContextAccessor
+@using ObjectModel.Dtos
 @{
     ViewData["Title"] = "Home";
     var top4 = ViewBag.Top4 as IEnumerable<StoryDTO>;
@@ -88,12 +89,28 @@
                                             <li>@s.IsActive</li>
                                             <li>Movie</li>
                                         </ul>
-                                        <div class="form-check my-2">
-                                            <input class="form-check-input" type="checkbox" id="favorite-checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId">
-                                            <label class="form-check-label text-white" for="favorite-checkbox">
-                                                Add to Favorites
-                                            </label>
-                                        </div>
+                                        @if (httpContextAccessor.HttpContext.Session.GetString("token") != null)
+                                        {
+                                            var f = ViewBag.Favourites as IEnumerable<FavouriteDTO>;
+                                            var uid = (int)ViewBag.Uid;
+
+                                            <div class="form-check my-2">
+                                                @if (f.Where(x => x.StoryId == s.StoryId && x.UserId == uid).FirstOrDefault() != null)
+                                                {
+                                                    <input class="form-check-input" type="checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId" checked>
+                                                    <label class="form-check-label text-white" for="favorite-checkbox-@s.StoryId">
+                                                        Delete to Favorites
+                                                    </label>
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-check-input" type="checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId">
+                                                    <label class="form-check-label text-white" for="favorite-checkbox-@s.StoryId">
+                                                        Add to Favorites
+                                                    </label>
+                                                }
+                                            </div>
+                                        }
                                         <h5>
                                             <a href="#">@s.Title - @s.AuthorName</a>
                                         </h5>
@@ -138,12 +155,28 @@
                                             <li>Active</li>
                                             <li>Movie</li>
                                         </ul>
-                                        <div class="form-check my-2">
-                                            <input class="form-check-input" type="checkbox" id="favorite-checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId">
-                                            <label class="form-check-label text-white" for="favorite-checkbox">
-                                                Add to Favorites
-                                            </label>
-                                        </div>
+                                        @if (httpContextAccessor.HttpContext.Session.GetString("token") != null)
+                                        {
+                                            var f = ViewBag.Favourites as IEnumerable<FavouriteDTO>;
+                                            var uid = (int)ViewBag.Uid;
+
+                                            <div class="form-check my-2">
+                                                @if (f.Where(x => x.StoryId == s.StoryId && x.UserId == uid).FirstOrDefault() != null)
+                                                {
+                                                    <input class="form-check-input" type="checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId" checked>
+                                                    <label class="form-check-label text-white" for="favorite-checkbox-@s.StoryId">
+                                                        Delete to Favorites
+                                                    </label>
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-check-input" type="checkbox" data-story-id="@s.StoryId" id="favorite-checkbox-@s.StoryId">
+                                                    <label class="form-check-label text-white" for="favorite-checkbox-@s.StoryId">
+                                                        Add to Favorites
+                                                    </label>
+                                                }
+                                            </div>
+                                        }
                                         <h5><a href="#">@s.Title - @s.AuthorName</a></h5>
                                     </div>
                                 </div>
