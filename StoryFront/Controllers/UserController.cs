@@ -34,7 +34,7 @@ namespace StoryFront.Controllers
                     return View("Views/User/Profile.cshtml");
                 }
             }
-            return NotFound();
+            return RedirectToAction("Login", "Auth", new { Value = "" });
         }
 
         public async Task<IActionResult> ChangePasswordView(string errorMess)
@@ -59,7 +59,7 @@ namespace StoryFront.Controllers
                     return View("Views/User/ChangePassword.cshtml");
                 }
             }
-            return NotFound();
+            return RedirectToAction("Login", "Auth", new { Value = "" });
         }
 
         [HttpPost]
@@ -86,7 +86,7 @@ namespace StoryFront.Controllers
                 //    return await Profile();
                 //}
             }
-            return NotFound();
+            return BadRequest();
         }
 
         public async Task<IActionResult> ChangePassword(UserDTO user, string newPassword, string rePassword)
@@ -117,7 +117,7 @@ namespace StoryFront.Controllers
                     return RedirectToAction("ChangePasswordView", "User", new { Mess = "" });
                 }
             }
-            return NotFound();
+            return BadRequest();
         }
     }
 }

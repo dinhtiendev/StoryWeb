@@ -33,7 +33,6 @@ namespace StoryFront.Controllers
                 ViewBag.UserId = userId;
             }
 
-
             var responseCt = await _categoryService.GetAllCategoriesAsync<ResponseDto>(null);
             var responseC = await _commentService.GetAllAsync<ResponseDto>(storyId, null);
             var responseM = await _storyService.GetStoryByIdAsync<ResponseDto>(storyId, null);
@@ -48,7 +47,7 @@ namespace StoryFront.Controllers
                 ViewBag.Comments = comments;
                 return View("Views/Manga/MangaDetail.cshtml");
             }
-            return View("Views/Shared/Error.cshtml");
+            return BadRequest();
         }
 
         public async Task<IActionResult> SearchManga(int categoryId)
@@ -73,7 +72,7 @@ namespace StoryFront.Controllers
                 ViewBag.Stories = stories;
                 return View("Views/Manga/SearchManga.cshtml");
             }
-            return View("Views/Shared/Error.cshtml");
+            return BadRequest();
         }
 
         public async Task<IActionResult> Search(string search)
@@ -99,7 +98,7 @@ namespace StoryFront.Controllers
                 ViewBag.Stories = stories;
                 return View("Views/Manga/SearchManga.cshtml");
             }
-            return View("Views/Shared/Error.cshtml");
+            return BadRequest();
         }
 
         public async Task<IActionResult> ReadingManga(int storyId, int index)
@@ -122,7 +121,7 @@ namespace StoryFront.Controllers
                 ViewBag.Index = index;
                 return View("Views/Manga/ReadManga.cshtml");
             }
-            return View("Views/Shared/Error.cshtml");
+            return BadRequest();
         }
     }
 }

@@ -21,6 +21,7 @@ namespace StoryFront.Controllers
             _categoryService = categoryService;
 		}
 
+        [HttpGet]
         public async Task<IActionResult> Login()
         {
             var responseC = await _categoryService.GetAllCategoriesAsync<ResponseDto>("");

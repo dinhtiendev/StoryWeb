@@ -22,7 +22,7 @@ namespace StoryFront.Controllers
             var token = HttpContext.Session.GetString("token");
             if (token == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Auth", new { Value = "" });
             }
             add.UserId = CheckService.GetUserId(token);
             var response = await _favouriteService.AddFavouriteAsync<ResponseDto>(token, add);
@@ -39,7 +39,7 @@ namespace StoryFront.Controllers
             var token = HttpContext.Session.GetString("token");
             if (token == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Auth", new { Value = "" });
             }
             delete.UserId = CheckService.GetUserId(token);
             var response = await _favouriteService.DeleteFavouriteAsync<ResponseDto>(token, delete);
@@ -69,7 +69,7 @@ namespace StoryFront.Controllers
                     return View("Views/User/FavouriteList.cshtml");
                 }
             }
-            return NotFound();
+            return RedirectToAction("Index", "Home");
 
         }
     }
