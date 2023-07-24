@@ -99,7 +99,7 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
-                                        <a href="#" class="reply-link">Reply</a>
+                                        <a href="#" class="reply-link" data-reply-id="@c.CommentId">Reply</a>
                                     </div>
                                     @if (userId != null)
                                     {
@@ -112,7 +112,7 @@
                                     }
                                 </div>
 
-                                <div class="anime__details__form reply-form my-2" style="display: none;">
+                                <div class="anime__details__form reply-form my-2" style="display: none;" data-reply-id="@c.CommentId">
                                     <form asp-action="AddReply" asp-controller="Comment" method="post">
                                         <input type="hidden" value="@manga.StoryId" name="StoryId" />
                                         <input type="hidden" value="@c.CommentId" name="ParentCommentId" />
@@ -164,19 +164,21 @@
 </section>
 <!-- Anime Section End -->
 <script>
-    const replyLinks = document.querySelectorAll('.reply-link');
+   const replyLinks = document.querySelectorAll('.reply-link');
 
-    const replyForms = document.querySelectorAll('.reply-form');
-
-    replyLinks.forEach((replyLink, index) => {
+    replyLinks.forEach((replyLink) => {
         replyLink.addEventListener('click', function (event) {
             event.preventDefault();
 
-            replyForms.forEach(form => {
+            const replyId = replyLink.dataset.replyId;
+            const replyForm = document.querySelector(`.reply-form[data-reply-id="${replyId}"]`);
+
+            const allReplyForms = document.querySelectorAll('.reply-form');
+            allReplyForms.forEach(form => {
                 form.style.display = 'none';
             });
 
-            replyForms[index].style.display = 'block';
+            replyForm.style.display = 'block';
         });
     });
 </script>
