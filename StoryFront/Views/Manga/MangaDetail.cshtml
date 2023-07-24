@@ -112,7 +112,7 @@
                                     }
                                 </div>
 
-                                <div class="anime__details__form reply-form my-2">
+                                <div class="anime__details__form reply-form my-2" style="display: none;">
                                     <form asp-action="AddReply" asp-controller="Comment" method="post">
                                         <input type="hidden" value="@manga.StoryId" name="StoryId" />
                                         <input type="hidden" value="@c.CommentId" name="ParentCommentId" />
@@ -190,14 +190,17 @@
     </div>
 </section>
 <!-- Anime Section End -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.reply-link').click(function(e) {
-            e.preventDefault();
-            $(this).siblings('.reply-form').toggle();
-        });
+    const replyLink = document.querySelector('.reply-link');
+    const replyForm = document.querySelector('.reply-form');
 
-        $('.reply-form').hide();
+    replyLink.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        if (replyForm.style.display === 'none') {
+            replyForm.style.display = 'block';
+        } else {
+            replyForm.style.display = 'none';
+        }
     });
 </script>
