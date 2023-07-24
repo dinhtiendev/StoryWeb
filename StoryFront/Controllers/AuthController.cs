@@ -44,6 +44,7 @@ namespace StoryFront.Controllers
                 HttpContext.Session.SetString("token", token);
                 return RedirectToAction("Index", "Home");
             }
+            ViewData["Checked"] = "Your email or password are wrong!";
             return await Login();
         }
 

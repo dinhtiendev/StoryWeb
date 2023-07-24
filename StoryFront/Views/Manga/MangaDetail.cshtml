@@ -126,17 +126,17 @@
                                     <div class="child-comments" style="margin-top: 40px;">
                                         <div class="anime__review__item">
                                             <div class="anime__review__item__pic">
-                                                <img src="@c.Image" alt="">
+                                                <img src="@r.Image" alt="">
                                             </div>
                                             <div class="anime__review__item__text">
-                                                <h6>@c.UserName - <span>@c.CreatedAt</span></h6>
-                                                <p> @c.Content</p>
+                                                <h6>@r.UserName - <span>@r.CreatedAt</span></h6>
+                                                <p> @r.Content</p>
                                                 @if (userId != null)
                                                 {
-                                                    @if (c.UserId == (int)userId)
+                                                    @if (r.CommentId == (int)userId)
                                                     {
                                                         <div class="col-md-2">
-                                                            <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@c.CommentId">Delete</a>
+                                                            <a asp-action="DeleteComment" asp-controller="Comment" asp-route-detailId="@manga.StoryId" asp-route-commentId="@r.CommentId">Delete</a>
                                                         </div>
                                                     }
                                                 }
