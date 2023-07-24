@@ -99,7 +99,7 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
-                                        <a href="#" class="reply-link">Reply</a>
+                                        <a href="#" class="reply-link" data-reply-id="@c.CommentId">Reply</a>
                                     </div>
                                     @if (userId != null)
                                     {
@@ -112,7 +112,7 @@
                                     }
                                 </div>
 
-                                <div class="anime__details__form reply-form my-2" style="display: none;">
+                                <div class="anime__details__form reply-form my-2" style="display: none;" data-reply-id="@c.CommentId">
                                     <form asp-action="AddReply" asp-controller="Comment" method="post">
                                         <input type="hidden" value="@manga.StoryId" name="StoryId" />
                                         <input type="hidden" value="@c.CommentId" name="ParentCommentId" />
@@ -191,16 +191,21 @@
 </section>
 <!-- Anime Section End -->
 <script>
-    const replyLink = document.querySelector('.reply-link');
-    const replyForm = document.querySelector('.reply-form');
+   const replyLinks = document.querySelectorAll('.reply-link');
 
-    replyLink.addEventListener('click', function (event) {
-        event.preventDefault();
+    replyLinks.forEach((replyLink) => {
+        replyLink.addEventListener('click', function (event) {
+            event.preventDefault();
 
-        if (replyForm.style.display === 'none') {
+            const replyId = replyLink.dataset.replyId;
+            const replyForm = document.querySelector(`.reply-form[data-reply-id="${replyId}"]`);
+
+            const allReplyForms = document.querySelectorAll('.reply-form');
+            allReplyForms.forEach(form => {
+                form.style.display = 'none';
+            });
+
             replyForm.style.display = 'block';
-        } else {
-            replyForm.style.display = 'none';
-        }
+        });
     });
 </script>
